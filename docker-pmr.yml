@@ -1,0 +1,78 @@
+#PMR
+pmr:
+  pmrfront:
+      build: 
+          context: spine/pmr/web/front
+          args:
+              - BACKEND=http://localhost:4011
+      ports:
+          - "5005:80"
+      environment:
+          - BACK=http://pmr:4011
+  pmrback:
+      build: 
+          spine/pmr/web/back
+      ports:
+          - "4011:4011"
+      environment:
+          - UPLOADDIR=/apptmp
+          - BRAIN=http://brain:5010
+          - USERNAME=Eros
+          - PWD=pwd
+          - PORT=4011
+          - APPNAME=pmr
+      volumes:
+          - type: bind
+            source: /Users/techgeek/Classes/ITP/data/tmp
+            target: /apptmp
+
+      
+  pmrspinalnode:
+      build: spine/pmr/vertebra
+      
+      ports: 
+          - "5121:5121"
+      environment:
+          - TMPDIR=/apptmp
+          - PORT=5121
+          - AFFERENCE=http://brain:5010/afference
+          - REDISSERVER=redis://pmrmusclestate:6379
+          - NAME=PMR
+          - TASKNAME=pmr.cu
+          - ID=11
+      volumes:
+          - type: bind
+            source: /Users/techgeek/Classes/ITP/data/tmp
+            target: /apptmp
+      depends_on:
+          - pmrmusclestate
+
+  pmrmusclestate:
+      image: redis
+      
+  pmrspinalinspector:
+      image: mher/flower:0.9.4
+      command: ["flower", "--broker=redis://pmrmusclestate:6379", "--port=3333"]
+      ports:
+      - "3333:3333"
+      depends_on:
+      - pmrmusclestate
+      
+  pmrmuscleworker:
+      build: spine/pmr/muscle
+      # context: .
+      # image: celery:latest
+      environment:
+        TMPDIR: /apptmp
+        REDISSERVER: redis://pmrmusclestate:6379
+        C_FORCE_ROOT: "true"
+        MCR: /app/matlabcode/
+        MATLABCODEDIR: /app/matlabcode/
+        MUSCLEMEMORY: pmrmusclestate
+          
+      links:
+        - pmrmusclestate:pmrmusclestate
+      volumes:
+        - type: bind
+          source: /Users/techgeek/Classes/ITP/data/tmp
+          target: /apptmp

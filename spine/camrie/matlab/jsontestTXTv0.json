@@ -1,0 +1,7 @@
+{"version":"v0","output":{"noise":false,"sar":false,"signal":true},"imagereconstruction":"0","geometry":{"id":169,"filename":"Geometry_head2x2x2.txt","link":"http:\/\/cloudmrhub.com\/test\/head_2x2x2.txt","state":"uploaded"},"tissue":{"id":170,"filename":"Tissue_300MHz.prop","link":"http:\/\/cloudmrhub.com\/test\/Tissue_300MHz.prop","state":"uploaded"},"fields":{"B0":3,"tdb":[],"gradx":[],"grady":[],"gradz":[],"b1plus":[],"b1minus":[],"etransmitted":[],"ereceived":[]},"coils":{"receivingCoilsNumber":8,"transmittingCoilsNumber":8},"sequence":{"sequencename":"1","rfshape":"1","rfpd":2.6,"nrfp":128,"rffa":90,"TE":10,"TR":500,"dTR":0,"TI":10,"pedirection":"1","sliceorientation":"1","slicethickness":2,"matrixsize0":128,"matrixsize1":128,"fov0":300,"fov1":300,"resol0":2.34375,"resol1":2.34375,"rbw":50,"ss":true,"pe":true,"fe":true,"setX":0,"setY":0,"setZ":0},"Alias":"test 1"}
+
+
+
+
+
+

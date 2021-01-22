@@ -1,0 +1,12 @@
+{
+    "date_done": "2020-10-27T10:27:17.298259",
+    "result": {
+        "exc_message": [
+            "dgf.cu"
+        ],
+        "exc_module": "celery.exceptions",
+        "exc_type": "NotRegistered"
+    },
+    "status": "FAILURE",
+    "task_id": "1c328db0-624a-4d75-9c50-2343d63bb580"
+}

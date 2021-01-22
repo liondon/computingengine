@@ -1,0 +1,153 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <script src="mroPACKAGES/jquery.min.js"></script>
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/mrojs/bootstrap.min.js" integrity="sha384-Tc5IQib027qvymrojsMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+    <script src="mroPACKAGES/bootstrap.min.js"></script>
+
+
+
+    <!--        font awesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+
+
+    <!--        3.2.0-->
+    <script src="mroPACKAGES/fabric.js"></script>
+    <!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/3.2.0/fabric.js" integrity="sha256-GF2O23ig0C+gUjVsjnGWCzhmDtiqg2uOdt0eNmysaFU=" crossorigin="anonymous"></script>-->
+
+
+
+
+    <script src="mroPACKAGES/angular.min.js"></script>
+
+
+    <script src="mroPACKAGES/angular-animate.js"></script>
+    <!--        1.5.9-->
+    <script src="mroPACKAGES/angular-sanitize.js"></script>
+
+
+    <script src="mroPACKAGES/ui-bootstrap.js"></script>
+    <script src="mroPACKAGES/ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+
+
+    <script src="mroPACKAGES/angular-ui-router.js"></script>
+
+
+
+    <script src="mroPACKAGES/angular-filter.js"></script>
+
+
+
+
+    <script type="text/javascript" src="mrojs/js-colormaps.js"></script>
+    <!--        <script src="mrojs/def.js"></script>-->
+
+
+
+
+    <script src="mroPACKAGES/FileSaver.min.js"></script>
+    <script src="mroPACKAGES/FileSaver.js"></script>
+
+
+
+
+
+
+    <script src="mroPACKAGES/math.js"></script>
+
+
+    <script src="mroPACKAGES/plotly-latest.min.js"></script>
+
+
+    <!-- <script src="http://192.168.56.2/CLOUDMRRedistributable/main.js"></script>
+    <link rel="stylesheet" href="http://192.168.56.2/CLOUDMRRedistributable/cmCss.css" />
+    <script src="http://192.168.56.2/CLOUDMRRedistributable/functions.js"></script>
+    <script src="http://192.168.56.2/CLOUDMRRedistributable/cmDrawer2D.js"></script> -->
+
+
+    <script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/main.js"></script>
+    <link rel="stylesheet" href="http://www.cloudmrhub.com/CLOUDMRRedistributable/cmCss.css" />
+    <script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/functions.js"></script>
+    <script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/cmDrawer2D.js"></script>
+
+    <script src="MROPTIMUMRedistribitable/main.js"></script>
+    <link rel="stylesheet" href="MROPTIMUMRedistribitable/mroCss.css">
+
+    <script src="mrojs/mroptimumReportDirectives.js"></script>
+    <script src="mrojs/mroptimumReportRoute.js"></script>
+
+    <script src="mrojs/mroptimumReportController.js"></script>
+
+
+    <!--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>-->
+
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+
+
+
+
+</head>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+
+    <!--        <div id="MYLOADER"></div>-->
+
+
+    <div class="container-fluid" id="THEREPORT">
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <mroptimum-report-snr-heading user="USER"></mroptimum-report-snr-heading>
+                <cite-mroptimum></cite-mroptimum>
+
+
+
+                <mroptimum-report-snr-definition></mroptimum-report-snr-definition>
+            </div>
+
+        </div>
+
+
+
+
+        <!--            here start the variable part of the report -->
+        <div class="row">
+            <div class="col-md-12">
+                <ui-view>
+                </ui-view>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>

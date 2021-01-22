@@ -1,0 +1,97 @@
+
+
+.mroRcontainer {
+  display: flex; /* or inline-flex */
+flex-direction:column;
+    margin: 0em;
+    
+/*
+    border-color: gainsboro;
+    border-radius:10px;
+        border-style: solid;
+  border-width:thin;
+*/
+
+
+   
+}
+
+
+.mroRflexitem {
+margin: 0em;
+border: 1px;
+/*border-color: black;*/
+/*border-style: dashed;*/
+/*    border-color: red;*/
+}
+
+
+
+.mroLcontainer {
+  display: flex; /* or inline-flex */
+flex-direction:row;
+     justify-content: center;
+    flex-wrap: wrap;
+/*
+    border-color: gainsboro;
+    border-radius:10px;   
+    border-style: solid;
+  border-width:thin;
+*/
+
+
+}
+.mroLcontainerUW {
+  display: flex; /* or inline-flex */
+flex-direction:row;
+     justify-content: center;
+    flex-wrap: nowrap;
+    min-width=600px;
+/*
+    border-color: gainsboro;
+    border-radius:10px;
+      border-style: solid;
+  border-width:thin;
+*/
+
+}
+
+
+.mroLflexitem {
+margin: 0.5em;
+border: 1px;
+/*border-color: black;*/
+/*border-style: dashed;*/
+}
+
+
+.mroSelectContainer {
+display: flex;
+/*margin-left: 10px;margin-right: 10px;margin-bottom: 0.5em;margin-top: 0.5em;*/
+flex-direction: row; align-items: stretch
+}
+
+/* style="width:80px;text-align: left;align-self: center"
+.mroSelectLabel{
+
+    align-self: center;
+    
+
+}
+*/
+
+.mroSelect{
+
+    align-self: center;
+width:100px;    
+/*style="width:80px;text-align: left;align-self: center"*/
+}
+
+
+.mroScroll {
+  display: block;
+  overflow-y: auto;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+

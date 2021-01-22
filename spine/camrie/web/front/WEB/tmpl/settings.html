@@ -1,0 +1,347 @@
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+<div class="container">
+
+
+    <cm-taskbar states="states" model="{{selectedstate}}"></cm-taskbar>
+
+
+
+    <uib-accordion>
+
+
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.OUTPUT.o" ng-show="VIEWS.OUTPUT.s">
+
+            <cm-uib-accordion-heading h="VIEWS.OUTPUT"></cm-uib-accordion-heading>
+
+
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <div class="cmLcontainerLeft">
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB">
+                            <cm-checkbox model="settings.output.noise" label="Calculate Noise"
+                                tooltip="Calculate noise"></cm-checkbox>
+                        </div>
+
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB">
+                            <cm-checkbox model="settings.output.sar" label="Calculate SAR" tooltip="Calculate SAR">
+                            </cm-checkbox>
+                        </div>
+
+
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB">
+                            <cm-checkbox model="settings.output.signal" label="Calculate Signal"
+                                tooltip="Calculate Signal"></cm-checkbox>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <div class="cmLcontainerLeft" ng-show="settings.output.signal">
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB">
+                            <cm-select-input list="availablereconstructions" label="Image Recon." fieldsshow="name"
+                                optionsvaluesfield="id" model="settings.imagereconstruction"
+                                tooltip="after the simulation how you want to merge the coil images"></cm-select-input>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="cmButton" ng-click="setCalulationOptions()" data-toggle="tooltip"
+                        title="submit the calculation type file to go further">Submit</button>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+    </uib-accordion>
+
+
+
+    <uib-accordion>
+
+
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.GEOM.o" ng-show="VIEWS.GEOM.s">
+
+            <cm-uib-accordion-heading h="VIEWS.GEOM"></cm-uib-accordion-heading>
+
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+                    <div class="cmLcontainerLeft">
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB">
+
+                            <local-upload-button endpoint="{{uploadapi}}" label="Geometry (smpl)" multiple=false
+                                user="USER" model="settings.geometry" tooltip='select the geompetry file'>
+                            </local-upload-button>
+
+                        </div>
+
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB">
+                            <local-upload-button endpoint="{{uploadapi}}" label="Tissue Property (prop)" multiple=false
+                                user="USER" model="settings.tissue" tooltip='select the tissue property file'>
+                            </local-upload-button>
+                        </div>
+                    </div>
+
+
+                    <div class="cmLcontainerLeft">
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB cminputElement">
+                            <cm-number-input model=settings.limit.min label="slice limit" step=1 tooltip="Reduces the number of slices to calculate "></cm-number-input>
+                        </div>
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB cminputElement">
+                            <cm-number-input model=settings.limit.max label="Max Slice limit" step=1 tooltip="Reduces the number of slices to calculate"> </cm-number-input>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="cmButton" ng-click="setGeometry()" data-toggle="tooltip"
+                        title="submit the geometry and the tissue property file to go further">Submit</button>
+                </li>
+            </ul>
+        </div>
+
+
+
+
+    </uib-accordion>
+
+
+
+
+
+    <uib-accordion>
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.COILS.o" ng-show="VIEWS.COILS.s">
+            <cm-uib-accordion-heading h="VIEWS.COILS">
+            </cm-uib-accordion-heading>
+
+            <ul class="list-group">
+
+
+                <li class="list-group-item">
+
+                    <camrie-coils model="settings.coils" setfunction="setCoils"></camrie-coils>
+                </li>
+            </ul>
+        </div>
+    </uib-accordion>
+
+    <uib-accordion>
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.SEQUENCE.o" ng-show="VIEWS.SEQUENCE.s">
+            <cm-uib-accordion-heading h="VIEWS.SEQUENCE">
+            </cm-uib-accordion-heading>
+
+            <ul class="list-group">
+
+
+
+                <li class="list-group-item">
+
+                    <div class="cmLcontainerLeft">
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB cminputElement">
+                            <cm-radiobox-input model="VIEWS.SEQUENCE.ORIGIN" label="Load Sequence" value="load"
+                                enable=false tootltip="upload your virtual sequence (not yet avaialble)">
+                            </cm-radiobox-input>
+                        </div>
+                        <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB cminputElement">
+                            <cm-radiobox-input model="VIEWS.SEQUENCE.ORIGIN" label="Create Sequence" value="create"
+                                enable=true tootltip="customize your virtual sequence"></cm-radiobox-input>
+                        </div>
+                    </div>
+                </li>
+
+
+                <li class="list-group-item" ng-show="VIEWS.SEQUENCE.ORIGIN=='create'">
+                    <camrie-sequence model="settings.sequence" setfunction=setSequence></camrie-sequence>
+                </li>
+
+
+
+                <li class="list-group-item" ng-show="VIEWS.SEQUENCE.ORIGIN=='load'">
+                    TODO
+                </li>
+
+            </ul>
+
+
+
+        </div>
+
+    </uib-accordion>
+
+    <uib-accordion>
+
+
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.FIELDS.o" ng-show="VIEWS.FIELDS.s">
+
+            <cm-uib-accordion-heading h="VIEWS.FIELDS"></cm-uib-accordion-heading>
+
+
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+
+                    <div class="cmRcontainerLeft">
+                        <div class="cmRflexitem">
+                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                <cm-number-input label="Field Strength (T)" model="settings.fields.B0" step="0.1"
+                                    enable=true tooltip="select the working field strength"></cm-number-input>
+                            </div>
+                        </div>
+                        <div class="cmRflexitem">
+                            <div class="cmLcontainerLeft">
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB ">
+                                    <cm-upload-select-file label="db0 (xx)" multiple=false user="USER"
+                                        model="settings.fields.tdb"></cm-upload-select-file>
+                                </div>
+
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB ">
+                                    <cm-upload-select-file label="grad X (xx)" multiple=false user="USER"
+                                        model="settings.fields.gradx"></cm-upload-select-file>
+                                </div>
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB ">
+                                    <cm-upload-select-file label="grad Y (xx)" multiple=false user="USER"
+                                        model="settings.fields.grady"></cm-upload-select-file>
+                                </div>
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB ">
+                                    <cm-upload-select-file label="grad Z (xx)" multiple=false user="USER"
+                                        model="settings.fields.gradz"></cm-upload-select-file>
+                                </div>
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB ">
+
+                                    <cm-upload-select-file label="B1+ (xx)" multiple=true user="USER"
+                                        model="settings.fields.b1plus"></cm-upload-select-file>
+                                </div>
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB ">
+
+                                    <cm-upload-select-file label="B1- (xx)" multiple=true user="USER"
+                                        model="settings.fields.b1minus"></cm-upload-select-file>
+                                </div>
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB " ng-show="settings.output.sar">
+
+                                    <cm-upload-select-file label="E Transmitted (xx)" multiple=true user="USER"
+                                        model="settings.fields.etransmitted"></cm-upload-select-file>
+                                </div>
+                                <div class="cmLflexitem cmMarginSpaceLR cmMarginSpaceTB "
+                                    ng-show="settings.output.noise">
+
+                                    <cm-upload-select-file label="E Received (xx)" multiple=true user="USER"
+                                        model="settings.fields.ereceived"></cm-upload-select-file>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cmRflexitem" ng-if="settings.fields.b1plus.length>0">
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+
+                                <div class="cmRcontainerLeft">
+                                    <div class="cmRflexitem">
+                                        <span> B1 plus</span>
+                                    </div>
+                                    <div class="cmRflexitem" ng-repeat="b in settings.fields.b1plus">
+                                        <div class="cmLcontainerLeft">
+                                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                                <span>{{b.filename}}</span>
+                                            </div>
+                                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                                <cm-number-input ng-init="b.phase=0" label="Phase" model="b.phase"
+                                                    enable=true tooltip="select the Phase"></cm-number-input>
+                                            </div>
+                                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                                <cm-number-input ng-init="b.amplitude=1" label="Amplitude"
+                                                    model="b.amplitude" enable=true tooltip="select the aplitude">
+                                                </cm-number-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="cmRflexitem" ng-if="settings.fields.etransmitted.length>0">
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+
+                                <div class="cmRcontainerLeft">
+                                    <div class="cmRflexitem">
+                                        <span> E transmitted</span>
+                                    </div>
+                                    <div class="cmRflexitem" ng-repeat="b in settings.fields.etransmitted">
+                                        <div class="cmLcontainerLeft">
+                                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                                <span>{{b.filename}}</span>
+                                            </div>
+                                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                                <cm-number-input ng-init="b.phase=0" label="Phase" model="b.phase"
+                                                    enable=true tooltip="select the Phase"></cm-number-input>
+                                            </div>
+                                            <div class="cmMarginSpaceLR cmMarginSpaceTB cmInputElement">
+                                                <cm-number-input ng-init="b.amplitude=1" label="Amplitude"
+                                                    model="b.amplitude" enable=true tooltip="select the aplitude">
+                                                </cm-number-input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="cmButton" ng-click="setFields()" data-toggle="tooltip"
+                        title="submit the Fields property file to go further">Submit</button>
+
+                </li>
+            </ul>
+        </div>
+
+
+    </uib-accordion>
+
+    <uib-accordion>
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.RESUME.o" ng-show="VIEWS.RESUME.s">
+            <cm-uib-accordion-heading h="VIEWS.RESUME">
+            </cm-uib-accordion-heading>
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+
+                    <div class="cmLcontainer" style="border-color: var(--NYUcolor01)">
+                        <div class="cmLflexitem cmLabel">
+                            <span class="cmlabel">Job Name</span>
+                        </div>
+                        <div class="cmLflexitem">
+                            <input type="text" ng-model="settings.Alias">
+                        </div>
+                        <div class="cmLflexitem">
+
+                            <button class="btn btn-success" ng-click="queuejob()">Queue Job</button>
+                        </div>
+                    </div>
+                </li>
+
+
+
+
+            </ul>
+        </div>
+    </uib-accordion>
+
+</div>

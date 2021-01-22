@@ -1,0 +1,115 @@
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="cmParagraph">
+            <div class="cmFontTitle">The “Difference Image” method for SNR calculation (5)</div>
+            <div class="cmText">
+                The “Difference Image” method for SNR calculation (5)
+                Two identical MR images (S<sub>sum</sub> and S<sub>dif</sub> ) are acquired consecutively and a “Sum” and a “Difference”
+                image are calculated as follow:
+                $$ {S_{sum} =S_1+S_2 } $$
+                $$ { S_{dif} =S_1-S_2 } $$
+
+                A region of interest (ROI) is drawn on S<sub>sum</sub> and the SNR is then calculated as the mean value
+                inside the ROI, divided by the standard deviation inside the same ROI but applied to S<sub>dif</sub>, :
+
+                $$ { SNR = \frac{mean(ROI)_{S_{sum}} }{\sqrt{2} \cdot  stdev(ROI)_{S_{dif}} } } $$
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row" ng-if="ROI.length==0">
+     <div class="cmFontTitle">Results</div>
+    no region Selected
+</div>
+<div class="row" ng-if="ROI.length>0">
+    <div class="col-md-12">
+        <div class="cmParagraph">
+            <div class="cmFontTitle">Results</div>
+
+
+
+
+
+            <div ng-repeat=" im in imagetodraw">
+<!--                            <cm-imshow thedata="im.arrayData" ></cm-imshow >-->
+                <!--
+<cm-imshow thedata="im.arrayData" ng-if="!(im.ROI)" ></cm-imshow >
+
+-->
+                <div class="mroRcontainer">
+                    <div class="mroRflexitem">
+                        <div class="mroLcontainer">
+                            <div class="mroLflexitem">
+                                <span class="cmFontTitle">{{im.title}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mroRflexitem">
+                        <div ng-repeat=" roi in ROI">
+                            <div class="mroRcontainer">
+                                <div class="mroRflexitem">
+                                    <div class="mroLcontainer">
+                                        <div class="mroLflexitem">
+                                            <span class="cmFontTitle">Region {{roi.id}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mroRflexitem">
+                                    <div class="mroLcontainer">
+                                        <div class="mroLflexitem">
+                                       
+                                            <cm-imshow-di thedata="im.arrayData" theroi="roi" di="im.di" transform="im.transform" lut="im.LUT"></cm-imshow-di>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mroRflexitem" ng-show="showGroup">
+                        <div class="mroRcontainer">
+                            <div class="mroRflexitem">
+                                <div class="mroLcontainer">
+                                    <div class="mroLflexitem">
+                                        <span class="cmFontTitle">Group Region</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mroRflexitem">
+
+                                <div class="mroLcontainer">
+                                    <div class="mroLflexitem">
+
+                                        <!--                <cm-imshow-di thedata="im.arrayData" thegroup="Group" ng-if="im.ROI" di="im.di" transform="im.transform"></cm-imshow-di>-->
+                                        <cm-imshow-di thedata="im.arrayData" thegroup="Group" ng-if="showGroup" di="im.di" transform="im.transform" lut=im.LUT></cm-imshow-di>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!--<cm-imshow-with-histogram></cm-imshow-with-histogram>-->
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <mroptimum-report-snr-acknowledgement></mroptimum-report-snr-acknowledgement>
+        <mroptimum-report-snr-reference articles="articles"></mroptimum-report-snr-reference>
+    </div>
+</div>

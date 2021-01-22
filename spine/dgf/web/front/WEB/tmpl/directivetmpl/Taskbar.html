@@ -1,0 +1,20 @@
+<!--<div ng-class="{'container':WF.SET==2,'container-fluid':WF.RES==2}" ng-show=USER.allow>    -->
+<div ng-class="{'container':WF.FLUID==false,'container-fluid':WF.FLUID==true}" ng-show="WF.v">    
+    <div class="panel-body">
+        <div class="row">
+
+            <button type="button" ui-sref="psudomri.home" ui-sref-opts="{reload: true, notify: true}" style="vertical-align: middle" ng-class="{'btn btn-DC':WF.state.H=='active','btn btn-light':WF.state.H!='active'}"> Home</button> 
+
+            <button type="button" ui-sref="psudomri.settings" ui-sref-opts="{reload: true, notify: true}"  style="vertical-align: middle" ng-class="{'btn btn-DC':WF.state.S=='active','btn btn-light':WF.state.S!='active'}"> Settings</button>
+
+            <button type="button" ui-sref="psudomri.results({ID:0,u:0})" ui-sref-opts="{reload: true, notify: true}"style="vertical-align: middle" ng-class="{'btn btn-DC':WF.state.R=='active','btn btn-light':WF.state.R!='active'}"> Results</button> 
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>

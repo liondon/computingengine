@@ -1,0 +1,137 @@
+
+
+<div class="row">
+    <div class="col-md-12">
+    <div class="cmParagraph">
+        <div class="cmFontTitle">SNR assessment using multiple image replicas</div>
+
+        <div class="cmText">
+            The “multiple replica” method is considered the gold-standard for SNR estimation. In the
+            multiple replica method, k-space signals are acquired multiple times for the same slice and
+            reconstructed using the same image reconstruction technique into a stack of equivalent image
+            replicas which differ only in their noise content. The SNR is then assessed on a pixel-by-pixel
+            basis as the ratio of the average (signal) and standard deviation (noise) of pixel values through
+            the stack of image replicas. This method is useful for measuring the spatially-variant amplified
+            noise in parallel imaging since image noise is calculated on a pixel-by-pixel basis.
+
+
+
+
+        </div>
+    </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="cmFontTitle">Results</div>
+
+
+        <div class="mroRcontainer">
+            <div class="mroRflexitem">
+                <div class="mroLcontainer" >
+                    <div class="mroLflexitem" >
+                <span class="cmFontTitle">SNR Map</span>
+                    </div>
+                </div>
+            </div>
+            <div class="mroRflexitem">
+                <div class="mroLcontainer" >
+                    <div class="mroLflexitem" >
+                        <div>
+                            <cm-imshow thedata="SNR.arrayData"></cm-imshow >
+                        </div>
+                    </div>
+                    <div class="mroLflexitem" >
+                        <div class="mroRcontainer">
+                            <div class="mroRflexitem">
+                                <p id="{{SNRTID}}"></p>
+                            </div>
+                            <div class="mroRflexitem">
+                                <div class="mroLcontainer"style="max-width: 30vw">
+                                    <div ng-repeat="(key, value) in JSONDATA.settings">
+                                        <div class="mroLflexitem" >
+                                            <cm-settings-dictionary option='{{key}}' value='{{value}}'></cm-settings-dictionary>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+<div class="row" ng-repeat="roi in ROI track by $index" ng-show="!(isUndefined(ROI))">
+
+    <div class="mroRcontainer" >
+        <div class="mroRflexitem">
+            <div class="mroLcontainer">
+                <div class="mroLflexitem">
+                    <span class="cmFontTitle">SNR of region {{roi.id}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="mroRflexitem">
+            <cm-imshow-with-histogram-and-crop thedata="SNR.arrayData" theroi="roi" transform="SNR.transform" lut="SNR.LUT"></cm-imshow-with-histogram-and-crop>
+        </div>
+    </div>
+</div>
+
+<div class="mroRcontainer" ng-show="showGroup">
+    <div class="mroRflexitem">
+        <div class="mroLcontainer">
+            <div class="mroLflexitem">
+                <span class="cmFontTitle">SNR of the Group region </span>
+            </div>
+        </div>
+    </div>
+    <div class="mroRflexitem" >
+        <cm-imshow-with-histogram-and-crop thedata="SNR.arrayData" thegroup="Group" transform="SNR.transform" lut="SNR.LUT"></cm-imshow-with-histogram-and-crop>
+    </div>
+</div>
+
+<div class="mroRcontainer" >
+    <div class="mroRflexitem">
+        <div class="mroLcontainer">
+            <div class="mroLflexitem">
+                <span class="cmFontTitle">Noise Area </span>
+            </div>
+        </div>
+    </div>
+    <div class="mroRflexitem">
+ <div class="mroLcontainer" >
+        <div class="mroLflexitem" >
+            <div id="inoise">
+            </div>
+        </div>
+    </div>
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+    <mroptimum-report-snr-acknowledgement></mroptimum-report-snr-acknowledgement>
+    <mroptimum-report-snr-reference articles="articles"></mroptimum-report-snr-reference>
+    </div>
+</div>

@@ -1,0 +1,2 @@
+The current Signal calculation is:
+x64, simple Tx, simple signal model.

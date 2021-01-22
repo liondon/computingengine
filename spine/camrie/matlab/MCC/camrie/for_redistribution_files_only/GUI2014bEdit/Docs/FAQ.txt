@@ -1,0 +1,36 @@
+=====================================
+
+PSUdoMRI 2011b FAQ by Zhipeng Cao (Jan.2012)
+
+=====================================
+
+1>> What are the system requirements to run PSUdoMRI?
+Operating System: Windows.
+MATLAB: 2007a or later.
+RAM: 4G or above recommended.
+
+(If you would like to run it on a non-windows platform, or on an older version of MATLAB, please contact me that I will be very happy to help you.)
+
+2>> A first time user: Why my signal calculation is so slow?
+
+Possible solutions:
+1) Are you using a multi-threaded computer? Did you set a right thread number?
+2) Did you try adjusting the mins & maxs that the simulator will input only a few slices of the model for calculation of signal?
+
+3>> What is the difference between SimpleSignal mode and AdvancedSignal mode?
+
+In SimpleSignal mode the system performs a RF calibration to determine the transmit voltage. In AdvancedSignal Mode this process is replaced by assuming the mean transmit B field in the object to be 5.8718524e-007 Tesla, and the transmit voltage is calculated on that. SimpleSignal mode is better suited for educational purposes, while AdvancedSignal mode better for researches, especially for multi-Tx studies.
+
+The SAR calculation has the same mechanism as the AdvancedSignal mode.
+
+4>> It seems the current release is for x64 system. What if I want to run it on a x86 system?
+
+Under the Engine folder, you will find engines built for x86 system. You just need to rename them for it to be run.
+
+5>> How can I access the k-space data and reconstruct the image with my own recon method?
+
+An example file "testSignal.m" is located in "Others" folder.
+
+=====================================
+
+If you have any other questions, please email me: zzc102@psu.edu.

@@ -1,0 +1,65 @@
+From: Florian Wiesinger [florian.wiesinger@gmail.com]
+Sent: Friday, March 16, 2007 5:35 PM
+To: Sodickson, Daniel
+Subject: Re: Scientific question
+
+Follow Up Flag: Follow up
+Flag Status: Completed
+
+Hi Dan,
+
+Pls. find attached a Matlab routine which calculates a uniform distribution of N point charges (coils) on the surface of a unit-sphere. For small N this routine basically always finds a global minimum; i.e. for N=4, 6, 8, 12, and 20 it finds the corresponding Platonic solids (i.e. convex regular polyhedrons: Tetrahedron(N=4), Cube(N=6), Octahedron(N=8), Dodecahedron(N=12), and Icosahedron(N=20)).
+For larger N the optimization typically gets stuck in a local minimum.
+In such cases it makes sense to repeat the optimization a number of times.
+
+Best regards,
+- Florian.
+
+PS: Ev. the algorithm can be improved by explicitly providing the gradient of the cost function (i.e. the electrostatic potential) to the Matlab non-linear optimization routine.
+.
+On 3/15/07, Sodickson, Daniel <Daniel.Sodickson@nyumc.org> wrote:
+>
+>
+>
+>
+> Hello again, Florian.  This time I write to you regarding a matter of science rather than career.  My student Riccardo Lattanzi and I are trying to replicate the work in your thesis and ISMRM abstract on approaching ultimate SNR with finite coil arrays.  In addition to being a useful conceptual tool, this will be very helpful for Riccardo in validating his ultimate intrinsic coil performance maps, which have been criticized for showing excessively poor performance of the actual coil arrays we have evaluated with respect to ultimate intrinsic SNR.  Your exposition in the thesis is characteristically clear.  However, it would help us to be sure of our results if you could provide a little more information about the packing of circular coils on the sphere.  Might you be able to track down and provide to us a list of the actual angular position of each coil center for the cases you studied (N = 4, 8, 16, 32, 64)?   Riccardo is working on implementing the optimization in your Eq. 2.72, but it would be helpful for him to be able to check his work.
+>
+>
+>
+> If this won't be straightforward for you, we can certainly forge ahead on our own with your thesis as a guide, but I thought I might as well ask.
+>
+>
+>
+> Thanks,
+>
+> Dan
+>
+>
+>
+>
+>
+>
+> -----------------------------------------
+>
+>
+> Daniel K. Sodickson, MD, PhD
+> Director, Center for Biomedical Imaging New York University Medical 
+> Center 650 First Avenue, Suite 600-A New York, NY 10016
+> Phone: 212-263-4844
+> FAX: 212-263-4845
+> Email: Daniel.Sodickson@med.nyu.edu
+> Web:http://www.med.nyu.edu/cbi/
+>
+>
+>
+>
+>
+>
+> ----------------------------------------------------------------------
+> --------
+This email message, including any attachments, is for the sole use of the intended recipient(s) and may contain information that is proprietary, confidential, and exempt from disclosure under applicable law. Any unauthorized review, use, disclosure, or distribution is prohibited. If you have received this email in error please notify the sender by return email and delete the original message. Please note, the recipient should check this email and any attachments for the presence of viruses. The organization accepts no liability for any damage caused by any virus transmitted by this email.
+==============================================================================
+>
+>
+>
+

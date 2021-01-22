@@ -1,0 +1,40 @@
+
+  
+  
+  
+  
+<div   style="display:  inline">
+  
+    
+  <div  ng-repeat ="s in layers"  style = "width:275px; margin-right: 1em;margin-bottom: 1em; border-color: {{s.color}};display: inline-block;border-style: ridge;border-radius: 10%;">
+<div style="margin:1em">      
+<dgf-text-input model="s.name" label="Name"></dgf-text-input>
+<dgf-number-input model="s.radiusSTART" label="Starting Radius [mm]" step=0.1 enable="s.enabler.radius.start"></dgf-number-input>
+
+<dgf-number-input model="s.radiusEND" label="End Radius [mm]" step=0.1 enable="s.enabler.radius.end"></dgf-number-input>
+  <dgf-number-input model="s.thickness" label="Tissue Thickness [mm]" step=0.1 enable="s.enabler.radius.thickness"></dgf-number-input>
+<dgf-number-input model="s.sigma" label="&sigma; [S/m]" step=0.01 enable="s.enabler.sigma"></dgf-number-input>
+<dgf-number-input model="s.epsilon" label="&epsilon;" step=0.01 enable="s.enabler.epsilon"></dgf-number-input>
+<dgf-color-input model="s.color" label="color"></dgf-color-input>
+
+  <label><input type="radio" value='hidden' ng-model="s.viewlist" >hidden</label> <label><input type="radio" value='solid' ng-model="s.viewlist" >solid</label>
+  <label><input type="radio" value='wireframe' ng-model="s.viewlist" >Wireframe</label>
+  
+<dgf-range-input model="s.opacity" label="Opacity" min='0' max='100' ng-if="s.viewlist=='solid'" ></dgf-range-input>
+
+<!--
+      <div style="display: inline">
+      <div style="display: inline-block;width:80%;float:left;"> 
+        <dgf-color-input model="s.color" label="color"></dgf-color-input>
+      </div>
+      <div style="display: inline-block;width: 20%">
+        <a href="javascript:void(0)" ng-click="transparenceOBJ(s.ID)"> <i   class="fas fa-eye"></i></a>
+
+      </div>
+    </div>
+-->
+      
+<!-- <a href="javascript:void(0)" ng-click="removeOBJ(s.ID)"> <i   class="far fa-trash-alt"></i></a><a href="javascript:void(0)" ng-click="transparenceOBJ(s.ID)"> <i   class="fas fa-eye"></i></a>-->
+    </div>
+    </div>
+  </div>

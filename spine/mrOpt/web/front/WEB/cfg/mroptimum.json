@@ -1,0 +1,9 @@
+{
+	"name": "MR Optimum",
+	"description": "An application to calculate SNR",
+	"link": "http://localhost:1000/apps/MROPTIMUM/mrofullpage.html#mroptimum/start/",
+	"ico": "http://localhost:1000/apps/MROPTIMUM/mroico/icoMROPT.jpg",
+	"activation": "http://localhost:1000/apps/MROPTIMUM/mroQ/addUser.php",
+	"deactivation": "http://localhost:1000/apps/MROPTIMUM/mroQ/removeUser.php",
+	"latest": ""
+}

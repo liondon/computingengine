@@ -1,0 +1,37 @@
+
+
+<div class="row">
+
+  <div class="col-md-12">
+    <div style="display:  inline">
+
+
+      <div  ng-repeat ="s in layers"  style = "width:275px; margin-right: 1em;margin-bottom: 1em; border-color: {{s.color}};display: inline-block;border-style: ridge;border-radius: 10%;">
+        <div style="margin:1em">
+          <dgf-text-input model="s.name" label="Name"></dgf-text-input>
+          <dgf-number-input model="s.currentRadius" label="Current Radius [mm]" step=0.1></dgf-number-input>
+          <dgf-number-input model="s.radiusEND" label="Max Radius [mm]" step=0.1 ></dgf-number-input>
+          <dgf-number-input model="s.sigma" label="&sigma; [S/m]" step=0.01></dgf-number-input>
+          <dgf-number-input model="s.epsilon" label="&epsilon;" step=0.01></dgf-number-input>
+          <dgf-color-input model="s.color" label="color"></dgf-color-input>
+          
+   
+
+          
+        </div>
+      </div>
+      
+           <div  style = "width:275px; margin-right: 1em;margin-bottom: 1em; border-color: rgba(255,255,255,0.4);display: inline-block;border-style: ridge;border-radius: 10%;   height: 238px;
+    vertical-align:top;">
+                  <div style="margin:1em">
+<!--      <cm-datalist-json list="coilsetup" out="selectedCoilSetup" labels="name" values="name"></cm-datalist-json>-->
+                    <dgf-datalist-json label="Coil Setup" list="coilsetup" model="selectedCoilSetup" fieldsshow="name" optionsvaluesfield="name"></dgf-datalist-json>
+    <textarea ng-model="layers[0].info" style="height: 180px;width: 240"></textarea>
+             </div>
+      </div>
+
+    </div>
+    
+  </div>
+  
+</div>

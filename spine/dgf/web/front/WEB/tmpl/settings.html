@@ -1,0 +1,129 @@
+<div class="container-fluid" >
+
+
+
+    <cm-taskbar states="states" model="{{selectedstate}}"></cm-taskbar>
+    
+
+    <uib-accordion>
+
+
+
+        
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.OBJ.o" ng-show="VIEWS.SCANNER.s"   >
+
+            <cm-uib-accordion-heading h="VIEWS.SCANNER"></cm-uib-accordion-heading>
+
+
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+
+              
+
+                    <div style = "width:275px; margin-right: 1em;display: inline-block;">
+                        <div style="margin:1em">      
+                            <dgf-number-input model="settings.fieldstrength" label="Field Strength [T]" step=0.1></dgf-number-input>
+                            <dgf-number-input model="settings.gridsize.x" label="Image Size X [mm]" step=1></dgf-number-input>
+                            <dgf-number-input model="settings.gridsize.y" label="Image Size Y [mm]" step=1></dgf-number-input>
+                        </div>
+                    </div>
+
+
+
+
+
+                </li>
+
+
+
+
+
+
+            </ul>
+        </div>
+
+
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.SCANNER.o" ng-show="VIEWS.OBJ.s"   >
+
+            <cm-uib-accordion-heading h="VIEWS.OBJ"></cm-uib-accordion-heading>
+
+
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+
+
+                    <threejs-canvas layers="settings.layers" coils="settings.coils"></threejs-canvas>
+
+
+                </li>
+
+            </ul>
+        </div>
+
+
+
+    </uib-accordion>
+
+
+    <uib-accordion>
+
+
+        <div uib-accordion-group class="panel-default" is-open="VIEWS.PUSH.o" ng-show="VIEWS.PUSH.s"   >
+
+            <cm-uib-accordion-heading h="VIEWS.PUSH"></cm-uib-accordion-heading>
+
+
+
+
+            <ul class="list-group">
+
+                <li class="list-group-item">
+
+                    <div class="cmLcontainer" style="border-color: var(--NYUcolor01)">
+                        <div class="cmLflexitem cmLabel" > 
+                            <span class="cmlabel">Job Name</span>
+                        </div>
+                        <div class="cmLflexitem" > 
+                            <input type="text" ng-model="settings.Alias">
+                        </div>
+                        <div class="cmLflexitem" > 
+
+                            <button class="btn btn-success" ng-click="queuejob()">Queue Job</button>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="list-group-item">
+                    <div class="cmLcontainer" style="border-color: var(--NYUcolor01)">
+
+                        <div class="cmLcontainer" style="border-color: var(--NYUcolor01)">
+                            <div class="cmLflexitem cmLabel" > 
+                                <div class="cmlabel">Matrix Size: [{{settings.gridsize.x }}][{{settings.gridsize.y }}]</div>
+                            </div>
+                        </div>
+
+                        <div class="cmLcontainer" style="border-color: var(--NYUcolor01)">
+                            <div class="cmLflexitem cmLabel" > 
+                                <div class="cmlabel">Field Strength: {{settings.fieldstrength}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </uib-accordion>
+
+
+</div>
+
+
+
+

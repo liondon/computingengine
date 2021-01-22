@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<script src="mroPACKAGES/jquery.min.js"></script>
+
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<!--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/mrojs/bootstrap.min.js" integrity="sha384-Tc5IQib027qvymrojsMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+<script src="mroPACKAGES/bootstrap.min.js"></script>
+
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script> -->
+
+
+
+
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/angularmrojs/1.5.9/angular.min.js"></script>-->
+<script src="mroPACKAGES/angular.min.js"></script>
+
+<!--        <script src="//ajax.googleapis.com/ajax/libs/angularmrojs/1.5.9/angular-animate.js"></script>-->
+<script src="mroPACKAGES/angular-animate.js"></script>
+<!--        <script src="//ajax.googleapis.com/ajax/libs/angularmrojs/1.5.9/angular-sanitize.js"></script>-->
+<script src="mroPACKAGES/angular-sanitize.js"></script>
+
+<!--                <script src="https://cdnmrojs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap.js"></script>-->
+<script src="mroPACKAGES/ui-bootstrap.js"></script>
+<script src="mroPACKAGES/ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+<script src="mroPACKAGES/angular-ui-router.js"></script>
+
+
+<script src="mroPACKAGES/angular-filter.js"></script>
+
+<script src="CLOUDMRRedistributable/main.js"></script>
+<link rel="stylesheet" href="CLOUDMRRedistributable/cmCss.css" />
+<script src="CLOUDMRRedistributable/functions.js"></script>
+<script src="CLOUDMRRedistributable/cmDrawer2D.js"></script>
+
+
+
+<script src="CLOUDMRRedistributable/cmfu.js"></script>
+
+
+<!--
+<script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/main.js"></script>
+<link rel="stylesheet" href="http://www.cloudmrhub.com/CLOUDMRRedistributable/cmCss.css"/>
+<script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/functions.js"></script>
+<script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/cmDrawer2D.js"></script>   
+<script src="http://www.cloudmrhub.com/CLOUDMRRedistributable/cmfu2D.js"></script>   
+-->
+
+
+
+<!-- needed for fileuplaod -->
+<script src="CLOUDMRRedistributable/resumable.js"></script>
+<script src="CLOUDMRRedistributable/anonymize_header.js"></script>
+
+<!-- <script src="http://cloudmrhub.com/CLOUDMRRedistributable/resumable.js"></script> -->
+<!-- <script src="http://cloudmrhub.com/CLOUDMRRedistributable/anonymize_header.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js" integrity="sha256-MAgcygDRahs+F/Nk5Vz387whB4kSK9NXlDN3w58LLq0=" crossorigin="anonymous"></script>
+
+
+<script>
+    var APP = angular.module('APP', ["ui.router", "angular.filter", "ui.bootstrap", "CM", "CMFU"])
+        .factory("cmTASK", ["$state", "$http", "$q", "$compile", "cmtool", "$interval", function($state, $http, $q, $compile, cmtool, $interval) {
+
+
+            var u = {
+                promisedataretienving: undefined
+            };
+
+            // starts the interval
+            u.startDataRetrieving = function() {
+                // stops any running interval to avoid two intervals running at the same time
+                u.stopDataRetrieving();
+
+                u.promiseDataretienving = $interval(function() {
+                    var USERID = u.getUserLog().UID;
+                    if (!(isUndefined(USERID))) {
+                        cmtool.getMyData(USERID).then(function(response) {
+                            u.USERDATA = response;
+                            //console.log(response);
+                        });
+                    }
+                }, 5000);
+
+            };
+
+            // stops the interval
+            u.stopDataRetrieving = function() {
+
+                $interval.cancel(u.promisedataretienving);
+            };
+
+
+
+            u.startDataRetrieving();
+
+
+
+
+
+
+
+            u.USERDATA = [];
+
+            u.getDIListOfData = function() {
+                var deferred = $q.defer();
+                var LIST = [];
+                u.USERDATA.forEach(function(o, indexof) {
+                    switch (getFilextension(o.filename).toLowerCase()) {
+
+                        case 'jpg':
+                        case 'png':
+                        case 'jpeg':
+                        case 'ima':
+                        case 'dcm':
+                            LIST.push(o);
+                    }
+                    if (indexof == u.USERDATA.length - 1) {
+                        deferred.resolve(LIST);
+
+
+                    }
+                })
+                return deferred.promise;
+            };
+
+
+            u.getACMListOfData = function() {
+                var deferred = $q.defer();
+                var LIST = [];
+                u.USERDATA.forEach(function(o, indexof) {
+                    switch (getFilextension(o.filename).toLowerCase()) {
+
+                        case 'ismrmrd':
+                        case 'dat':
+                            LIST.push(o);
+                    }
+                    if (indexof == u.USERDATA.length - 1) {
+                        deferred.resolve(LIST);
+
+
+                    }
+                })
+                return deferred.promise;
+            };
+
+
+
+            u.logUID = {
+                UID: undefined, //TOCHANGE
+                name: undefined,
+                surname: undefined,
+                email: undefined,
+                status: undefined,
+                admin: false,
+                logged: false,
+                allow: false,
+                pwd: undefined
+            }
+
+            u.login = function(e, p) {
+
+                console.log(QPATH + 'loginUser.php');
+
+                return $http({
+                    method: 'POST',
+                    data: {
+                        'email': e,
+                        'pwd': p
+                    },
+                    url: QPATH + 'loginUser.php',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(response) {
+
+                    var q = response[0];
+                    u.setUserLog(q.ID, q.name, q.surname, q.email, q.status, q.admin, q.password, q.picture);
+                });
+
+
+            };
+
+
+            u.isAdmin = function() {
+                return u.logUID.admin;
+            };
+            u.islogged = function() {
+                return u.logUID.logged;
+            };
+
+            u.ora = function() {
+                return new Date().toISOString().slice(0, 19).replace('T', ' ');
+            };
+
+            u.oggi = function() {
+                var d = new Date();
+                //        var c=d.getFullYear().toString();
+                var c = d.getFullYear().toString() + "_" + d.getMonth().toString() + "_" + d.getDate().toString();
+                return c;
+            };
+
+            u.setUserLog = function(us, n, s, e, o, a, pw, pic) {
+                u.logUID.name = n;
+                u.logUID.UID = us;
+                u.logUID.surname = s;
+                u.logUID.email = e;
+                u.logUID.status = o;
+                u.logUID.pwd = pw;
+                u.logUID.picture = pic;
+
+                if (a == 1) {
+                    u.logUID.admin = true;
+                }
+                u.logUID.logged = true;
+
+                if (o == "ok") {
+                    u.logUID.allow = true;
+
+                } else {
+                    u.logUID.allow = false;
+                }
+
+            };
+
+
+            //non va...
+            u.setEntireUserLog = function(x) {
+                var deferred = $q.defer();
+
+                u.logUID = x;
+                deferred.resolve(true);
+                return deferred.promise;
+
+            };
+
+
+
+            u.getUserLog = function() {
+
+                return u.logUID;
+            };
+
+            u.invalidate = function() {
+                u.logUID.UID = undefined;
+                u.logUID.name = undefined;
+                u.logUID.surname = undefined;
+                u.logUID.email = undefined;
+                u.logUID.status = undefined;
+                u.logUID.logged = false;
+                u.logUID.admin = false;
+                u.logUID.pwd = undefined;
+                u.logUID.picture = undefined;
+
+                //        $state.go("main.login", {}, {reload: true});
+
+                u.goto("main.login");
+
+
+
+            };
+
+            u.goto = function(s, opt) {
+
+                if (isUndefined(opt)) {
+                    opt = {};
+                }
+                $state.go(s, opt, {
+                    reload: true
+                });
+            };
+
+
+            u.myRFAPI = function(DATA, web) {
+                var deferred = $q.defer();
+
+                DATA.email = u.logUID.email;
+                DATA.pwd = u.logUID.pwd;
+                DATA.uid = u.logUID.UID;
+
+
+                u.RFAPI(DATA, QPATH + web).then(function(response) {
+
+                    deferred.resolve(response);
+
+
+                });
+
+
+
+                return deferred.promise;
+
+            };
+
+
+
+            u.RFAPI = function(DATA, web) {
+                var deferred = $q.defer();
+                $http({
+                    method: 'POST',
+                    data: DATA,
+                    url: web,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }).success(function(response) {
+
+                    deferred.resolve(response);
+                });
+                return deferred.promise;
+
+            };
+
+
+
+
+            u.LOAD = function(x) {
+                var dir = angular.element(document.createElement("load"));
+                var el = $compile(dir);
+                //        var el = $compile(dir)($scope);
+                var box = "#MYLOADER";
+
+                if (x) {
+                    angular.element(box).append(dir);
+                } else {
+                    var elmnt = angular.element(document.querySelector('#MYLOADER'));
+                    elmnt.empty();
+
+                }
+
+            };
+
+
+            u.getJson = function(u) {
+                //   console.log(u);
+                var deferred = $q.defer();
+
+                $http.get(u).success(function(data) {
+                    deferred.resolve(data);
+                    //  console.log(data);
+
+                });
+
+                return deferred.promise;
+            };
+
+
+            u.insertNewUser = function(data, PIC) {
+
+
+                var fd = new FormData();
+                fd.append('file', PIC);
+
+
+
+                return $http({
+                    method: 'POST',
+                    data: data,
+                    url: QPATH + 'addUser.php'
+                }).success(function(response) {
+                    console.log(response.response);
+                    if (response.response != 0) {
+                        u.logUID.UID = response.response;
+                        fd.append('id', response.response);
+                        u.updateCMPIC(fd);
+                    };
+                });
+            };
+
+
+            u.updateProfilePIC = function(myPIC) {
+                var deferred = $q.defer();
+
+                var fd = new FormData();
+                fd.append('file', myPIC);
+                fd.append('id', u.logUID.UID);
+
+                u.updateCMPIC(fd).then(function(response) {
+
+                    deferred.resolve(response);
+
+                });
+
+                return deferred.promise;
+            };
+
+
+            u.updateCMPIC = function(fd) {
+                var deferred = $q.defer();
+
+                $http.post(QPATH + "uploaderprofilePIC.php", fd, {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined,
+                        'Process-Data': false
+                    }
+                }).success(function(r) {
+                    deferred.resolve(r);
+                });
+                return deferred.promise;
+            };
+
+            u.fQRV = function(sql, callback) {
+
+                $http.get(QPATH + "/utils/fastQReturnJson.php?Q=" + sql).success(function(response) {
+                    callback(response);
+                    // console.log(QPATH + "/utils/fastQReturnJson.php?Q=" + sql);
+                });
+            };
+
+
+
+            u.FIXUSERJOBS = function(X) {
+                X.forEach(function(o, i) {
+                    var datei = new Date(o.dateIN);
+                    var dateo = new Date(o.dateOUT);
+                    var diffTime = Math.abs(dateo.getTime() - datei.getTime());
+                    o.SS = diffTime / (1000);
+                });
+            }
+
+            u.FIXUSERFILES = function(X, total) {
+                var MAXDATA = 10000000000;
+                if (isUndefined(X)) {
+
+                } else {
+                    X.forEach(function(o, i) {
+                        total.v = total.v + parseInt(o.size);
+                        total.p = (total.v / MAXDATA) * 100;
+
+                    });
+                }
+
+            }
+
+
+
+            return u;
+
+        }])
+
+
+    .service('spin', ["$compile", "$rootScope", function($compile, $rootScope) {
+            var x = getUIID();
+            //            this.spinner={id:x,
+            //                          status:false,
+            //                          template : '<div width="600" height="100" id ="' + x + '" style="background-color: red;height:100px;width=600px;" z-index=100><span>{{NN}}{{N}}</span></div>',
+            //                         }; 
+            console.log($rootScope);
+
+            this.label = "deeeeee";
+            var QUA = this;
+            this.spinner = {
+                id: x,
+                status: "nonspinning",
+                template: '<div id="' + x + '"><cm-progressbar model="pb.model" label="{{QUA.label}}" min="0" max="100" tootltip="{{pb.tooltip}} "></cm-progressbar></div>',
+            };
+
+
+
+
+            this.start = function(scope, N) {
+                if (this.spinner.status != "spinning") {
+                    this.spinner.status = "spinning";
+                    console.log("start");
+
+
+                    //                angular.element(document.body).append($compile(this.spinner.template)(scope));                    
+                    angular.element(document.body).append($compile(this.spinner.template)($rootScope));
+                } else {
+                    this.stop();
+                }
+            }
+            this.update = function(x) {
+
+            }
+
+            this.stop = function() {
+                if (this.spinner.status == "spinning") {
+                    //document.querySelector( '#'+ this.spinner.id ).remove() ;
+                    document.getElementById(this.spinner.id).remove();
+
+                    this.spinner.status = "nonspinning";
+                } else {
+
+                }
+            };
+        }])
+        .controller('test', ["$scope", "cmtool", "$interval", "$compile", "spin", "cmTASK", function($scope, cmtool, $interval, $compile, spin, cmTASK) {
+
+
+            $scope.show = {
+                cmupload2: true,
+            };
+
+
+
+            //test uplaod
+            $scope.uploadtestinit = function() {
+
+                $scope.qui = {
+                    thefile: [],
+                    thefiles: 'reset'
+                };
+                $scope.user = {
+                    UID: 119
+                };
+                cmTASK.setEntireUserLog($scope.user);
+                $scope.multiple = false;
+                $scope.label = "allora??";
+                $scope.list = [];
+                $scope.list2 = [];
+
+                $scope.$watch('qui.thefile', function(x) {
+                    console.log(x);
+                }, true);
+                $scope.$watch('qui.thefiles', function(x) {
+                    console.log(x);
+                }, true);
+
+                $interval(function() {
+                    cmTASK.getDIListOfData().then(function(o) {
+                        $scope.list = o;
+                    });
+
+                }, 100);
+
+                $interval(function() {
+                    cmTASK.getACMListOfData().then(function(o) {
+                        $scope.list2 = o;
+                    });
+
+                }, 100);
+
+            };
+
+
+            $scope.init = function() {
+
+                // $interval(function() {
+                //     var root = $(document.getElementsByTagName('body'));
+                //     var watchers = [];
+
+                //     var f = function(element) {
+                //         if (element.data().hasOwnProperty('$scope')) {
+                //             angular.forEach(element.data().$scope.$$watchers, function(watcher) {
+                //                 watchers.push(watcher);
+                //             });
+                //         }
+
+                //         angular.forEach(element.children(), function(childElement) {
+                //             f($(childElement));
+                //         });
+                //     };
+
+                //     f(root);
+                //     cmtool.loading(false);
+                //     console.log(watchers.length);
+                // }, 100);
+                // cmtool.loading(true);
+                // // console.log(info.browserEngine());
+
+                if ($scope.show.cmupload2) {
+                    $scope.uploadtestinit();
+                }
+
+            };
+
+            $scope.init();
+
+
+
+
+        }])
+</script>
+
+
+
+<body>
+
+    <div ng-app="APP" ng-controller="test">
+        <div style="border-width: medium;border-style: groove;" ng-if="show.cmupload2">
+
+            <!-- <cm-upload-select-file list="list" label="label" user="user" model="thefile" multiple=false tooltip='select the tissue property file'></cm-upload-select-file> -->
+            <cm-upload-select-file label="label" user="user" model="qui.thefile" multiple=false tooltip='select the tissue property file' list="list"></cm-upload-select-file>
+            <!-- <cm-upload-select-file label="label2" user="user" model="qui.thefiles" multiple=true tooltip='select the tissue property file' list="list2"></cm-upload-select-file> -->
+            <cm-file-inpt label="fileinput" user="user" model="qui.thefiles" multiple=true tooltip='select the tissue property file' list="list2"></cm-upload-select-file>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

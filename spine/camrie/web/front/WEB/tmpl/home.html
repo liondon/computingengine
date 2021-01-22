@@ -1,0 +1,71 @@
+<div class="container">
+
+        <cm-taskbar states="states" model="{{selectedstate}}"></cm-taskbar>
+
+
+    <uib-accordion>
+        <div uib-accordion-group class="panel-default" is-open="FILE.v.o" ng-show="FILE.v.s"  data-toggle="tooltip" data-placement="top"  >
+
+            
+            
+            <cm-uib-accordion-heading h="FILE.v"></cm-uib-accordion-heading>
+
+
+            <ul>
+                <li class="list-group-item">
+                   
+
+                    <div class="progress" ng-show="total.p>0.0">
+                        <div id="g" ng-class="{'progress-bar progress-bar-striped  progress-bar-warning active': total.p>50 , 'progress-bar progress-bar-success progress-bar-striped  active': total.p<=50,'progress-bar progress-bar-striped  progress-bar-danger active': total.p>80}"  role="progressbar" aria-valuenow="{{total.p}}"
+                             aria-valuemin="0" aria-valuemax="100" style="width:{{total.p}}%">  {{total.p.toFixed(0)}} %
+                        </div>
+                    </div>
+                </li>
+            <li class="list-group-item">
+                        
+                    <cm-action-table  caption="My Data" style="padding-top: 1em" list="TABLEDATA" functions="TABLEDATAFUNCTIONS" visible="TABLEDATAVISIBLE" ng-show="DATA.length>0"></cm-action-table>
+                   
+                </li>
+                
+<!--
+                <li class="list-group-item">
+                        
+                    <cm-action-table  caption="My ROIs" style="padding-top: 1em" list="TABLEROIS" functions="TABLEROISFUNCTIONS" visible="TABLEROISVISIBLE"></cm-action-table>
+                   
+                </li>
+                <li class="list-group-item">
+                        
+                    <cm-action-table  caption="My Results" style="padding-top: 1em" list="TABLERESULTS" functions="TABLERESULTSFUNCTIONS" visible="TABLERESULTSVISIBLE"></cm-action-table>
+                   
+                </li>
+-->
+            </ul>
+        </div>
+    </uib-accordion>
+    
+    
+    
+<!--    <uib-accordion>
+        <div uib-accordion-group class="panel-default" is-open="RESULTS.v.o" ng-show="RESULTS.v.s"  data-toggle="tooltip" data-placement="top"  >
+
+            <cm-uib-accordion-heading h="RESULTS.v"></cm-uib-accordion-heading>
+
+            <ul>
+                
+                <li class="list-group-item">
+                    <cm-action-table caption="Latest Activities" style="padding-top: 1em" list="TABLEJOBS" functions="TABLEJOBSFUNCTIONS" visible="TABLEJOBSVISIBLE"></cm-action-table>
+
+                </li>
+             
+
+            </ul>
+        </div>
+    </uib-accordion>
+-->
+   
+
+
+</div>
+
+
+

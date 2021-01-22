@@ -1,0 +1,145 @@
+INPUT FILENAMES:
+  Geometry Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\geometry\main.glg
+  Tissue Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\tissue\main.log
+  Sequence Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\Sequence.seqn
+  Delta Bo Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\Delta.b0
+  # Tx:
+    4
+  Tx Mag & Phs:
+    1 0
+    12 0
+    1 0
+    2 1
+  B1p Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1p1.bpfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1p2.bpfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1p3.bpfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1p4.bpfld
+  E1p Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\E1p1.epfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\E1p2.epfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\E1p3.epfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\E1p4.epfld
+  # Rx:
+    4
+  B1m Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1m1.bmfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1m2.bmfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1m3.bmfld
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\B1m4.bmfld
+  E1m Filename:
+
+  Gx Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\Grad.x
+  Gy Filename:
+
+  Gz Filename:
+
+
+OUTPUT FILENAMES:
+  KSpace Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\KSpace.ksig
+  KMap Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\KMap.ktrj
+  Noise Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\Noise.nois
+  SAR Filename:
+    E:\Giuseppe\Giuseppe\NYU\PSUdoMRI Cloud\GUI2014bEdit\SARFile.ktrj
+
+GEOMETRY EDITOR SETUP:
+  Display:
+    ID
+  Scale:
+    Linear
+  Slice Orientation:
+    Axial
+  Slice Thickness:
+    2
+  Slice Position:
+    98
+  Sample Min:
+    XMin:
+      58
+    YMin:
+      22
+    ZMin:
+      108
+  Sample Max:
+    XMax:
+      224
+    YMax:
+      144
+    ZMax:
+      110
+  Grad. IsoCtr:
+    XCtr:
+      141
+    YCtr:
+      83
+    ZCtr:
+      98
+  FOV Offset:
+    XSet:
+      0
+    YSet:
+      0
+    ZSet:
+      0
+  Filter:
+      0
+  Model Res.:
+    XWid:
+      2
+    YWid:
+      2
+    ZWid:
+      2
+
+SEQUENCE PARAMETER SETUP:
+  B0(T):
+    3
+  Sequence Type:
+    GRE
+  RF Shape:
+    Sinc
+  RF Duration(ms):
+    3
+  # Points in RF Pulse:
+    128
+  RF Flip Angle:
+    10
+  FOV(mm)
+    128  128
+  MatSize:
+    64  64
+  ADC Freq(kHz):
+    50
+  TI_Duration(ms):
+    3
+  Gradient ON:
+    SS:
+      0
+    PE:
+      0
+    FE:
+      0
+  TE(ms):
+    10
+  TR(ms):
+    10
+  #Dummy TRs:
+    10
+  PE Direct:
+    P--A
+
+PROGRAM INFO:
+  NumIsoMenu:
+    1
+  Thread #:
+    1
+  Mode:
+    SignalSimple

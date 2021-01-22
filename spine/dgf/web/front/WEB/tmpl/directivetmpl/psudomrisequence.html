@@ -1,0 +1,24 @@
+<uib-accordion >
+    <div uib-accordion-group class="panel-default" is-open="data.v.o" ng-show="data.v.s">
+
+        <my-uib-accordion-heading h="data.v"></my-uib-accordion-heading>
+        
+           <ul class="list-group">
+            <li class="list-group-item">
+             <form ng-repeat="x in data.selections">
+                 <my-numberbox md="x.v" label="{{x.label}}" ng-if="x.type=='number'"></my-numberbox> 
+                 
+                 <my-selectbox options="x.options" md="x.v" label="{{x.label}}" ng-if="x.type=='select'"></my-selectbox>
+                
+                </form>
+                
+                
+               </li>
+        </ul>
+        
+        
+    </div>
+</uib-accordion>
+
+
+
