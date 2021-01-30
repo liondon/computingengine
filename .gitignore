@@ -1,0 +1,11 @@
+# vagrant
+.vagrant/
+
+# credentials
+/cloudmr_AWS_admin.csv
+.env
+
+.vscode/
+node_modules/
+
+/.DS_Store
