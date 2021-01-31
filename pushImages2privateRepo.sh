@@ -2,7 +2,7 @@
 
 for REPO in "$@"
 do
-  export AWS_ACCOUNT_ID=373619751787
+  export AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}
   aws ecr create-repository \
       --repository-name ${REPO} \
       --image-scanning-configuration scanOnPush=true \
