@@ -10,21 +10,32 @@ def mr_simulation(ctask, jopt):
         currentTaskDirectory = os.path.dirname(jopt)
         outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDirectory)
         
-        requestParam = fileUtils.getJsonFromFile(jopt)["options"]
-        fileUrls = requestParam["fileUrls"]
+        options = fileUtils.getJsonFromFile(jopt)["options"]
 
+        images = options["files"]
         filePathsParam = "\"[{"
         fileNum = 0
-        for fileUrl in fileUrls:
+        for image in images:
+            fileId = image["ID"]
+
             if fileNum != 0:
                 filePathsParam += ", "
             filePath = os.path.join(currentTaskDirectory, f"file{fileNum}.dat")    
-            fileUtils.downloadFiles(filePath, fileUrl)
+
+            result = fileUtils.downloadCmFile(filePath, fileId)
+            fileUtils.checkDownloadResult(result)
+
             filePathsParam += f"'{filePath}'"
             fileNum = fileNum + 1
         filePathsParam += "}]\""
-        command = commandGenerator.getMrOptCommandFromTaskName(constants.MR_TASK_NAME, filePathsParam, None,
-                                            requestParam["optionsFileUrl"], outputFile, logFile, requestParam["qServer"])
+
+        command = commandGenerator.getMrOptCommandFromTaskName(
+            constants.MR_TASK_NAME, 
+            filePathsParam, 
+            None,
+            options["optionsFileUrl"], 
+            outputFile, logFile, 
+            options["qServer"])
         print(command)
         execute.executeTask(ctask, command)
         

@@ -1,8 +1,5 @@
 import os
-from muscleUtils import constants 
-from muscleUtils import fileUtils
-from muscleUtils import execute
-from muscleUtils import exceptionHandler
+from muscleUtils import constants, fileUtils, execute, exceptionHandler
 from commandGen import commandGenerator
 
 def acm_simulation(ctask, jopt):
@@ -10,16 +7,24 @@ def acm_simulation(ctask, jopt):
         currentTaskDirectory = os.path.dirname(jopt)
         outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDirectory)
         
-        requestParam = fileUtils.getJsonFromFile(jopt)["options"]
+        options = fileUtils.getJsonFromFile(jopt)["options"]
         
         signalFilePath = os.path.join(currentTaskDirectory, "signalFile.dat")
         noiseFilePath = os.path.join(currentTaskDirectory, "noiseFile.dat")
 
-        fileUtils.downloadFiles(signalFilePath, requestParam["signalFileUrl"])
-        fileUtils.downloadFiles(noiseFilePath, requestParam["noiseFileUrl"])
+        result = fileUtils.downloadCmFile(signalFilePath, options["signalFile"])
+        fileUtils.checkDownloadResult(result)
 
-        command = commandGenerator.getMrOptCommandFromTaskName(constants.ACM_TASK_NAME, signalFilePath, noiseFilePath, 
-                                            requestParam["optionsFileUrl"], outputFile, logFile, requestParam["qServer"])
+        result = fileUtils.downloadCmFile(noiseFilePath, options["noiseFile"])
+        fileUtils.checkDownloadResult(result)
+
+        command = commandGenerator.getMrOptCommandFromTaskName(
+            constants.ACM_TASK_NAME, 
+            signalFilePath, noiseFilePath, 
+            options["optionsFileUrl"], 
+            outputFile, logFile, 
+            options["qServer"]
+        )
         print(command)
         execute.executeTask(ctask, command)
         

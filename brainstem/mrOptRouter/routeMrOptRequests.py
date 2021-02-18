@@ -11,8 +11,8 @@ def handleACMOrPMRRequest(requestApplication, req_data, data_set, toreturn):
     requestOptions = requestData["options"]
     myH.logIt(app, requestOptions)
     options = {}
-    options["signalFileUrl"] = requestOptions["J"]["signalData"]
-    options["noiseFileUrl"] = requestOptions["J"]["noiseData"]
+    options["signalFile"] = requestOptions["J"]["signaldata"]
+    options["noiseFile"] = requestOptions["J"]["noisedata"]
     options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
     options["qServer"] = requestOptions["J"]["qServer"]
     data_set["jobType"] = requestApplication.lower()
@@ -33,8 +33,8 @@ def handleDIRequest(requestApplication, req_data, data_set, toreturn):
 
     myH.logIt(app, requestOptions)
     options = {}
-    options["imageFile1Url"] = requestOptions["J"]["image0"]
-    options["imageFile2Url"] = requestOptions["J"]["image1"]
+    options["imageFile1"] = requestOptions["J"]["image0"]
+    options["imageFile2"] = requestOptions["J"]["image1"]
 
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =
@@ -54,8 +54,8 @@ def handleMRRequest(requestApplication, req_data, data_set, toreturn):
     myH.logIt(app, requestOptions)
     options = {}
 
-    fileUrls = [val["ID"] for val in json.loads(requestOptions["J"]["images"])]
-    options["fileUrls"] = fileUrls
+    files = [val["ID"] for val in json.loads(requestOptions["J"]["images"])]
+    options["files"] = files
     options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
     options["qServer"] = requestOptions["J"]["qServer"]
 

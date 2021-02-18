@@ -17,4 +17,8 @@ DI_TASK_NAME = "DI"
 FILE_UPLOAD_PATH_TO_BLUEHOST = "apps/MROPTIMUM/mroQ/serviceAPI.php"
 BLUEHOST_FALL2020_BASE_URL = "http://cloudmrhub.com/"
 
+SERVER = BLUEHOST_FALL2020_BASE_URL
+cloudmrhubQuerypath = SERVER + "Q"
+cmServiceAPI = cloudmrhubQuerypath + "/serviceAPI.php"
+
 OUTPUT_KEY = "output"
