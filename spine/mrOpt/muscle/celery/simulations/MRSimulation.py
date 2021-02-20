@@ -16,14 +16,18 @@ def mr_simulation(ctask, jopt):
         filePathsParam = "\"[{"
         fileNum = 0
         for image in images:
-            fileId = image["ID"]
+            if "ID" in image:
+                fileId = image["ID"]
 
             if fileNum != 0:
                 filePathsParam += ", "
             filePath = os.path.join(currentTaskDirectory, f"file{fileNum}.dat")    
 
-            result = fileUtils.downloadCmFile(filePath, fileId)
-            fileUtils.checkDownloadResult(result)
+            if fileId:
+                result = fileUtils.downloadCmFile(filePath, fileId)
+                fileUtils.checkDownloadResult(result)
+            else:
+                fileUtils.downloadFiles(filePath, fileUrl)
 
             filePathsParam += f"'{filePath}'"
             fileNum = fileNum + 1
@@ -38,7 +42,12 @@ def mr_simulation(ctask, jopt):
             options["qServer"])
         print(command)
         execute.executeTask(ctask, command)
-        
+
+        with open(logFile, 'r') as log:
+            print(log.read())
+        with open(outputFile, 'r') as output:
+            print(output.read())
+
         return {"output": outputFile, "log": logFile, "mat": matFile}
     except Exception as ex:
         exceptionHandler.handleException(ctask, ex)

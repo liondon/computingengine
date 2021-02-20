@@ -15,12 +15,22 @@ def  pmr_simulation(ctask, jopt):
         
         signalFilePath = os.path.join(currentTaskDirectory, "signalFile.dat")
         noiseFilePath = os.path.join(currentTaskDirectory, "noiseFile.dat")
+        
+        if isinstance(options["signalFile"], int) or options["signalFile"].isnumeric():
+            # Using fileId
+            result = fileUtils.downloadCmFile(signalFilePath, options["signalFile"])
+            fileUtils.checkDownloadResult(result)
+        else: 
+            # Using fileURL
+            fileUtils.downloadFiles(signalFilePath, options["signalFile"])
 
-        result = fileUtils.downloadCmFile(signalFilePath, options["signalFile"])
-        fileUtils.checkDownloadResult(result)
-
-        result = fileUtils.downloadCmFile(noiseFilePath, options["noiseFile"])
-        fileUtils.checkDownloadResult(result)
+        if isinstance(options["noiseFile"], int) or options["noiseFile"].isnumeric():
+            # Using fileId
+            result = fileUtils.downloadCmFile(noiseFilePath, options["noiseFile"])
+            fileUtils.checkDownloadResult(result)
+        else: 
+            # Using fileURL
+            fileUtils.downloadFiles(noiseFilePath, options["noiseFile"])
 
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.PMR_TASK_NAME, 
@@ -31,7 +41,12 @@ def  pmr_simulation(ctask, jopt):
         )
         print(command)
         execute.executeTask(ctask, command)
-        
+
+        with open(logFile, 'r') as log:
+            print(log.read())
+        with open(outputFile, 'r') as output:
+            print(output.read())
+
         return {constants.OUTPUT_KEY: outputFile, "log": logFile, "mat": matFile}
     except Exception as ex:
         exceptionHandler.handleException(ctask, ex)

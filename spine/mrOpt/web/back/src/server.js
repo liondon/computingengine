@@ -14,7 +14,7 @@ const PORT=process.env.PORT || 4009;
 const APPNAME=process.env.APPNAME || 'MrOpt';
 
 
-const BRAIN=process.env.BRAIN || 'http://brain:5010';
+const BRAIN=process.env.BRAIN || 'http://brainstem:5010';
 
 const UPLOADDIR=process.env.UPLOADDIR || '/apptmp'
 

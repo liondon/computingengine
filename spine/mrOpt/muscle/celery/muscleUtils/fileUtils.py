@@ -74,9 +74,7 @@ def rfAPIfull(url, data):
     return gg
 
 def downloadCmFile(filePath, fileId):
-    if (type(fileId) == str):
-        print("nothing to do")
-    else:
+    if (type(fileId) != str):
         fileId = str(fileId)
 
     # from the file id get the file in the working tmp and get back the filename

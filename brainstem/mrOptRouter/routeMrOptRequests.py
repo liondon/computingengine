@@ -17,7 +17,7 @@ def handleACMOrPMRRequest(requestApplication, req_data, data_set, toreturn):
     options["qServer"] = requestOptions["J"]["qServer"]
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =
-    data_set["uid"] = requestData["uid"]
+    data_set["uid"] = requestOptions["UID"]
     data_set["options"] = options
     myH.logIt(app, data_set)
     response = verterbra.efference(constants.mrOptEfference, data_set)

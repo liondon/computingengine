@@ -33,169 +33,169 @@ services:
 
 
 
-    camriemusclestate:
-        image: redis
+    # camriemusclestate:
+    #     image: redis
 
     
 
-    camriespinalinspector:
-        image: mher/flower:0.9.4
-        command: ["flower", "--broker=redis://camriemusclestate:6379", "--port=5555"]
-        ports:
-        - "5555:5555"
-        depends_on:
-        - camriemusclestate
+    # camriespinalinspector:
+    #     image: mher/flower:0.9.4
+    #     command: ["flower", "--broker=redis://camriemusclestate:6379", "--port=5555"]
+    #     ports:
+    #     - "5555:5555"
+    #     depends_on:
+    #     - camriemusclestate
 
     
-    #CAMRIE
-    camriefront:
-        build: 
-            context: spine/camrie/web/front
-            args:
-                - BACKEND=http://camrieback:4000
-        ports:
-            - "5001:80"
-        environment:
-            - BACK=http://camrieback:4000
-    camrieback:
-        build: 
-            spine/camrie/web/back
-        ports:
-            - "4000:4000"
-        environment:
-            - UPLOADDIR=/apptmp
-            - brainstem=http://brainstem:5010
-            - USERNAME=Eros
-            - PWD=pwd
-            - PORT=4000
-        volumes:
-            - type: bind
-              source: /Users/techgeek/Classes/ITP/data/tmp
-              target: /apptmp
+    # #CAMRIE
+    # camriefront:
+    #     build: 
+    #         context: spine/camrie/web/front
+    #         args:
+    #             - BACKEND=http://camrieback:4000
+    #     ports:
+    #         - "5001:80"
+    #     environment:
+    #         - BACK=http://camrieback:4000
+    # camrieback:
+    #     build: 
+    #         spine/camrie/web/back
+    #     ports:
+    #         - "4000:4000"
+    #     environment:
+    #         - UPLOADDIR=/apptmp
+    #         - brainstem=http://brainstem:5010
+    #         - USERNAME=Eros
+    #         - PWD=pwd
+    #         - PORT=4000
+    #     volumes:
+    #         - type: bind
+    #           source: /Users/techgeek/Classes/ITP/data/tmp
+    #           target: /apptmp
  
         
-    camriespinalnode:
-        build: spine/camrie/vertebra
+    # camriespinalnode:
+    #     build: spine/camrie/vertebra
         
-        ports: 
-            - "5115:5115"
-        environment:
-            - TMPDIR=/apptmp
-            - PORT=5115
-            - AFFERENCE=http://brainstem:5010/afference
-            - REDISSERVER=redis://camriemusclestate:6379
-            - NAME=camrie
-            - ID=2
-        volumes:
-            - type: bind
-              source: /Users/techgeek/Classes/ITP/data/tmp
-              target: /apptmp
-        depends_on:
-            - camriemusclestate
+    #     ports: 
+    #         - "5115:5115"
+    #     environment:
+    #         - TMPDIR=/apptmp
+    #         - PORT=5115
+    #         - AFFERENCE=http://brainstem:5010/afference
+    #         - REDISSERVER=redis://camriemusclestate:6379
+    #         - NAME=camrie
+    #         - ID=2
+    #     volumes:
+    #         - type: bind
+    #           source: /Users/techgeek/Classes/ITP/data/tmp
+    #           target: /apptmp
+    #     depends_on:
+    #         - camriemusclestate
 
 
-    camriemuscleworker: #6001
-        build: spine/camrie/muscle
-        # context: .
-        # image: celery:latest
-        environment:
-          TMPDIR: /apptmp
-          REDISSERVER: redis://camriemusclestate:6379
-          C_FORCE_ROOT: "true"
-          MCR: /app/matlabcode/
-          MATLABCODEDIR: /app/matlabcode/
-          MUSCLEMEMORY: camriemusclestate
+    # camriemuscleworker: #6001
+    #     build: spine/camrie/muscle
+    #     # context: .
+    #     # image: celery:latest
+    #     environment:
+    #       TMPDIR: /apptmp
+    #       REDISSERVER: redis://camriemusclestate:6379
+    #       C_FORCE_ROOT: "true"
+    #       MCR: /app/matlabcode/
+    #       MATLABCODEDIR: /app/matlabcode/
+    #       MUSCLEMEMORY: camriemusclestate
             
-        links:
-          - camriemusclestate:camriemusclestate
-        volumes:
-          - type: bind
-            source: /Users/techgeek/Classes/ITP/data/tmp
-            target: /apptmp
+    #     links:
+    #       - camriemusclestate:camriemusclestate
+    #     volumes:
+    #       - type: bind
+    #         source: /Users/techgeek/Classes/ITP/data/tmp
+    #         target: /apptmp
 
 
 
 
 
 
-    #DGF
+    # #DGF
 
-    dgffront:
-        build: 
-            context: spine/dgf/web/front
-            args:
-                - BACKEND=http://dgfback:4003
-                - BACKEND_PORT=31095
-        ports:
-            - "5003:80"
-        environment:
-            - BACK=http://dgfback:4003
-    dgfback:
-        build: 
-            spine/dgf/web/back
-        ports:
-            - "4003:4003"
-        environment:
-            - UPLOADDIR=/apptmp
-            - brainstem=http://brainstem:5010
-            - USERNAME=Eros
-            - PWD=pwd
-            - PORT=4003
-            - APPNAME=dgf
-        volumes:
-            - type: bind
-              source: /Users/techgeek/Classes/ITP/data/tmp
-              target: /apptmp
+    # dgffront:
+    #     build: 
+    #         context: spine/dgf/web/front
+    #         args:
+    #             - BACKEND=http://dgfback:4003
+    #             - BACKEND_PORT=31095
+    #     ports:
+    #         - "5003:80"
+    #     environment:
+    #         - BACK=http://dgfback:4003
+    # dgfback:
+    #     build: 
+    #         spine/dgf/web/back
+    #     ports:
+    #         - "4003:4003"
+    #     environment:
+    #         - UPLOADDIR=/apptmp
+    #         - brainstem=http://brainstem:5010
+    #         - USERNAME=Eros
+    #         - PWD=pwd
+    #         - PORT=4003
+    #         - APPNAME=dgf
+    #     volumes:
+    #         - type: bind
+    #           source: /Users/techgeek/Classes/ITP/data/tmp
+    #           target: /apptmp
  
         
-    dgfspinalnode:
-        build: spine/dgf/vertebra
+    # dgfspinalnode:
+    #     build: spine/dgf/vertebra
         
-        ports: 
-            - "5113:5113"
-        environment:
-            - TMPDIR=/apptmp
-            - PORT=5113
-            - AFFERENCE=http://brainstem:5010/afference
-            - REDISSERVER=redis://dgfmusclestate:6379
-            - NAME=Dyadic Green Function Solver
-            - ID=3
-        volumes:
-            - type: bind
-              source: /Users/techgeek/Classes/ITP/data/tmp
-              target: /apptmp
-        depends_on:
-            - dgfmusclestate
+    #     ports: 
+    #         - "5113:5113"
+    #     environment:
+    #         - TMPDIR=/apptmp
+    #         - PORT=5113
+    #         - AFFERENCE=http://brainstem:5010/afference
+    #         - REDISSERVER=redis://dgfmusclestate:6379
+    #         - NAME=Dyadic Green Function Solver
+    #         - ID=3
+    #     volumes:
+    #         - type: bind
+    #           source: /Users/techgeek/Classes/ITP/data/tmp
+    #           target: /apptmp
+    #     depends_on:
+    #         - dgfmusclestate
 
-    dgfmusclestate:
-        image: redis
+    # dgfmusclestate:
+    #     image: redis
         
-    dgfspinalinspector:
-        image: mher/flower:0.9.4
-        command: ["flower", "--broker=redis://dgfmusclestate:6379", "--port=3333"]
-        ports:
-        - "3333:3333"
-        depends_on:
-        - dgfmusclestate
+    # dgfspinalinspector:
+    #     image: mher/flower:0.9.4
+    #     command: ["flower", "--broker=redis://dgfmusclestate:6379", "--port=3333"]
+    #     ports:
+    #     - "3333:3333"
+    #     depends_on:
+    #     - dgfmusclestate
         
-    dgfmuscleworker: #6000
-        build: spine/dgf/muscle
-        # context: .
-        # image: celery:latest
-        environment:
-          TMPDIR: /apptmp
-          REDISSERVER: redis://dgfmusclestate:6379
-          C_FORCE_ROOT: "true"
-          MCR: /app/matlabcode/
-          MATLABCODEDIR: /app/matlabcode/
-          MUSCLEMEMORY: dgfmusclestate
+    # dgfmuscleworker: #6000
+    #     build: spine/dgf/muscle
+    #     # context: .
+    #     # image: celery:latest
+    #     environment:
+    #       TMPDIR: /apptmp
+    #       REDISSERVER: redis://dgfmusclestate:6379
+    #       C_FORCE_ROOT: "true"
+    #       MCR: /app/matlabcode/
+    #       MATLABCODEDIR: /app/matlabcode/
+    #       MUSCLEMEMORY: dgfmusclestate
             
-        links:
-          - dgfmusclestate:dgfmusclestate
-        volumes:
-          - type: bind
-            source: /Users/techgeek/Classes/ITP/data/tmp
-            target: /apptmp
+    #     links:
+    #       - dgfmusclestate:dgfmusclestate
+    #     volumes:
+    #       - type: bind
+    #         source: /Users/techgeek/Classes/ITP/data/tmp
+    #         target: /apptmp
             
     #MrOptimum
     mroptfront:
