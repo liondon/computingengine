@@ -204,9 +204,11 @@ angular.module("CMFU", [])
 
                 //actually upload it
                 scope.uploadFile = function () {
-                    var bucketName = "langone2020";
+                    var bucketName = "cloudmrhub";
                     var bucketRegion = 'us-east-2';
-                    var identityPoolId = 'us-east-2:d1f2c2bf-0f19-4915-9248-7c7f09ae5597';
+                    var identityPoolId = 'us-east-2:f20bb844-8be4-4162-bb23-b33fb57bd7dc';
+                    // TODO: the identityPoolId here Enable access to unauthenticated identities
+                    // should change it to only allow logged-in users. Check AWS Cognito.
 
                     AWS.config.update({
                         region: bucketRegion,
