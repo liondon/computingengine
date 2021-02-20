@@ -2,17 +2,14 @@ FROM python:3.6-slim
 
 LABEL maintainer="Dr. Eros Montin, PhD <eros.montin@gmail.com>"
 
-
 #install needed tool
 RUN apt-get update && apt-get install -y --no-install-recommends wine wine64
-RUN apt-get install -q -y --no-install-recommends \
-	  xorg \
-      unzip \
-      wget \
-      curl && \
+RUN apt-get update && apt-get install --fix-missing -q -y --no-install-recommends \
+    xorg \
+    unzip \
+    wget \
+    curl && \
     apt-get clean 
-    
-
 
 # Download the MCR from MathWorks site an install with -mode silent
 RUN mkdir /mcr-install && \
@@ -24,7 +21,7 @@ RUN mkdir /mcr-install && \
     ./install -destinationFolder /opt/mcr -agreeToLicense yes -mode silent && \
     cd / && \
     rm -rf mcr-install
- 
+
 RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y wine32
 
 
@@ -47,5 +44,7 @@ COPY ./code/acm_code/ /celery_tasks
 COPY ./code/mr_code/ /celery_tasks
 COPY ./code/di_code/ /celery_tasks
 WORKDIR /celery_tasks
+
+RUN chmod a+x /celery_tasks/DImat /celery_tasks/ACMCompiledtask /celery_tasks/MRtask /celery_tasks/PMRtask 
 
 ENTRYPOINT celery -A tasks worker --loglevel=info
