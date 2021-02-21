@@ -20,6 +20,11 @@ def handleACMOrPMRRequest(requestApplication, req_data, data_set, toreturn):
     # options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
     # options["qServer"] = requestOptions["J"]["qServer"]
 
+    # TODO: this is to record the jopt url on bluehost for mode1
+    # Confirm the workflow: use jopt on bluehost or on docker volume (written by vertebra/spinalnode)
+    if "optionsFileUrl" in requestData:
+        options["optionsFileUrl"] = requestData["optionsFileUrl"]
+
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =
     data_set["uid"] = requestOptions["UID"]
@@ -65,6 +70,11 @@ def handleMRRequest(requestApplication, req_data, data_set, toreturn):
     # See README for more detail
     # options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
     # options["qServer"] = requestOptions["J"]["qServer"]
+
+    # TODO: this is to record the jopt url on bluehost for mode1
+    # Confirm the workflow: use jopt on bluehost or on docker volume (written by vertebra/spinalnode)
+    if "optionsFileUrl" in requestData:
+        options["optionsFileUrl"] = requestData["optionsFileUrl"]
 
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =

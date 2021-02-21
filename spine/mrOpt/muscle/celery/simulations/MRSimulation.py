@@ -20,17 +20,23 @@ def mr_simulation(ctask, jopt):
                 downloadLink = fileUtils.getDataDownloadLink(file)
             else:
                 downloadLink = file
-            filePath = fileUtils.downloadFilefromUrl(currentTaskDir, "file{fileNum}", downloadLink)
+            filePath = fileUtils.downloadFilefromUrl(currentTaskDir, f"file{fileNum}", downloadLink)
 
             filePathsParam += f"'{filePath}'"
             fileNum = fileNum + 1
         filePathsParam += "}]\""
 
+        # TODO: using jopt file on bluehost for mode1, the default for mode2. See README for details.
+        optionsFileUrl = options["optionsFileUrl"] if "optionsFileUrl" in options else None
+
+        # TODO: use default jopt on bluehost for testing
+        optionsFileUrl =  "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/212/MR/J/MROPT_5f452fca92548.json"
+
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.MR_TASK_NAME, 
             filePathsParam, 
             None,
-            "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/212/MR/J/MROPT_5f452fca92548.json",  #TODO: fix this
+            optionsFileUrl,
             outputFile, logFile, 
             constants.qServer
         )

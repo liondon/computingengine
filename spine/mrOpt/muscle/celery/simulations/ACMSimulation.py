@@ -23,10 +23,16 @@ def acm_simulation(ctask, jopt):
             downloadLink = options["noiseFile"]
         noiseFilePath =  fileUtils.downloadFilefromUrl(currentTaskDir, "noiseFile", downloadLink)
 
+        # TODO: using jopt file on bluehost for mode1
+        optionsFileUrl = options["optionsFileUrl"] if "optionsFileUrl" in options else None
+        
+        # TODO: use default jopt on bluehost for testing
+        optionsFileUrl = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/ACM/J/ACMOPT_5d1d0afd204bd.json"
+
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.ACM_TASK_NAME, 
             signalFilePath, noiseFilePath, 
-            "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/ACM/J/ACMOPT_5d1d0afd204bd.json", #TODO: fix this
+            optionsFileUrl,
             outputFile, logFile, 
             constants.qServer
         )
