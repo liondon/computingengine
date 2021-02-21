@@ -4,10 +4,12 @@ from commandGen import commandGenerator
 
 def  pmr_simulation(ctask, jopt):
     try:
-        currentTaskDirectory = os.path.dirname(jopt)
-        outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDirectory)
+        currentTaskDir = os.path.dirname(jopt)
+        outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDir)
         
         options = fileUtils.getJsonFromFile(jopt)["options"]
+        print('=============== Task Options ===============', options)
+
         if isinstance(options["signalFile"], int) or options["signalFile"].isnumeric():
             downloadLink = fileUtils.getDataDownloadLink(options["signalFile"])
         else:
@@ -27,14 +29,14 @@ def  pmr_simulation(ctask, jopt):
             outputFile, logFile, 
             constants.qServer
         )
-        print(command)
+        print("=============== Command ===============", command)
         execute.executeTask(ctask, command)
 
         with open(logFile, 'r') as log:
-            print(log.read())
+            print("=============== LOG ===============", log.read())
         with open(outputFile, 'r') as output:
-            print(output.read())
+            print("=============== OUTPUT ===============", output.read())
 
-        return {constants.OUTPUT_KEY: outputFile, "log": logFile, "mat": matFile}
+        return {"output": outputFile, "log": logFile, "mat": matFile}
     except Exception as ex:
         exceptionHandler.handleException(ctask, ex)

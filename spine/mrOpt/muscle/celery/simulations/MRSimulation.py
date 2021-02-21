@@ -4,8 +4,8 @@ from commandGen import commandGenerator
 
 def mr_simulation(ctask, jopt):
     try:
-        currentTaskDirectory = os.path.dirname(jopt)
-        outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDirectory)
+        currentTaskDir = os.path.dirname(jopt)
+        outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDir)
         
         options = fileUtils.getJsonFromFile(jopt)["options"]
         files = options["files"]
@@ -32,15 +32,15 @@ def mr_simulation(ctask, jopt):
             None,
             "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/212/MR/J/MROPT_5f452fca92548.json",  #TODO: fix this
             outputFile, logFile, 
-        print(command)
             constants.qServer
         )
+        print("=============== Command ===============", command)
         execute.executeTask(ctask, command)
 
         with open(logFile, 'r') as log:
-            print(log.read())
-        with open(outputFile, 'r') as output:
-            print(output.read())
+            print("=============== LOG ===============", log.read())
+        # with open(outputFile, 'r') as output:
+        #     print("=============== OUTPUT ===============", output.read())
 
         return {"output": outputFile, "log": logFile, "mat": matFile}
     except Exception as ex:
