@@ -14,12 +14,16 @@ def di_simulation(ctask, jopt):
         print('=============== Task Options ===============', options)
 
         if isinstance(options["imageFile1"], int) or options["imageFile1"].isnumeric():
-            downloadLink = fileUtils.getDataDownloadLink(options["imageFile1"])
-        imageFile1Path = fileUtils.downloadFilefromUrl(currentTaskDir, "imageFile1", options["imageFile1"])
+            downloadLink = fileUtils.getDataDownloadLink(options["imageFile1"]) 
+        else: 
+            downloadLink = options["imageFile1"]            
+        imageFile1Path = fileUtils.downloadFilefromUrl(currentTaskDir, "imageFile1", downloadLink)
 
         if isinstance(options["imageFile2"], int) or options["imageFile2"].isnumeric():
             downloadLink = fileUtils.getDataDownloadLink(options["imageFile2"])
-        imageFile2Path = fileUtils.downloadFilefromUrl(currentTaskDir, "imageFile2", options["imageFile2"])
+        else:
+            downloadLink = options["imageFile2"]
+        imageFile2Path = fileUtils.downloadFilefromUrl(currentTaskDir, "imageFile2", downloadLink)
 
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.DI_TASK_NAME, 

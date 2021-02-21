@@ -9,24 +9,18 @@ def acm_simulation(ctask, jopt):
         
         options = fileUtils.getJsonFromFile(jopt)["options"]
         
-        signalFilePath = os.path.join(currentTaskDirectory, "signalFile.dat")
-        noiseFilePath = os.path.join(currentTaskDirectory, "noiseFile.dat")
 
         if isinstance(options["signalFile"], int) or options["signalFile"].isnumeric():
-            # Using fileId
-            result = fileUtils.downloadCmFile(signalFilePath, options["signalFile"])
-            fileUtils.checkDownloadResult(result)
-        else: 
-            # Using fileURL
-            fileUtils.downloadFiles(signalFilePath, options["signalFile"])
+            downloadLink = fileUtils.getDataDownloadLink(options["signalFile"])
+        else:
+            downloadLink = options["signalFile"]
+        signalFilePath = fileUtils.downloadFilefromUrl(currentTaskDir, "signalFile", downloadLink)
 
         if isinstance(options["noiseFile"], int) or options["noiseFile"].isnumeric():
-            # Using fileId
-            result = fileUtils.downloadCmFile(noiseFilePath, options["noiseFile"])
-            fileUtils.checkDownloadResult(result)
-        else: 
-            # Using fileURL
-            fileUtils.downloadFiles(noiseFilePath, options["noiseFile"])
+            downloadLink = fileUtils.getDataDownloadLink(options["noiseFile"])
+        else:
+            downloadLink = options["noiseFile"]
+        noiseFilePath =  fileUtils.downloadFilefromUrl(currentTaskDir, "noiseFile", downloadLink)
 
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.ACM_TASK_NAME, 

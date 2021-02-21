@@ -1,9 +1,5 @@
 import os
-from muscleUtils import constants 
-from muscleUtils import fileUtils
-from muscleUtils import userAuth
-from muscleUtils import execute
-from muscleUtils import exceptionHandler
+from muscleUtils import constants, fileUtils, userAuth, execute, exceptionHandler
 from commandGen import commandGenerator
 
 def  pmr_simulation(ctask, jopt):
@@ -12,25 +8,17 @@ def  pmr_simulation(ctask, jopt):
         outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDirectory)
         
         options = fileUtils.getJsonFromFile(jopt)["options"]
-        
-        signalFilePath = os.path.join(currentTaskDirectory, "signalFile.dat")
-        noiseFilePath = os.path.join(currentTaskDirectory, "noiseFile.dat")
-        
         if isinstance(options["signalFile"], int) or options["signalFile"].isnumeric():
-            # Using fileId
-            result = fileUtils.downloadCmFile(signalFilePath, options["signalFile"])
-            fileUtils.checkDownloadResult(result)
-        else: 
-            # Using fileURL
-            fileUtils.downloadFiles(signalFilePath, options["signalFile"])
+            downloadLink = fileUtils.getDataDownloadLink(options["signalFile"])
+        else:
+            downloadLink = options["signalFile"]
+        signalFilePath = fileUtils.downloadFilefromUrl(currentTaskDir, "signalFile", downloadLink)
 
         if isinstance(options["noiseFile"], int) or options["noiseFile"].isnumeric():
-            # Using fileId
-            result = fileUtils.downloadCmFile(noiseFilePath, options["noiseFile"])
-            fileUtils.checkDownloadResult(result)
-        else: 
-            # Using fileURL
-            fileUtils.downloadFiles(noiseFilePath, options["noiseFile"])
+            downloadLink = fileUtils.getDataDownloadLink(options["noiseFile"])
+        else:
+            downloadLink = options["noiseFile"]
+        noiseFilePath =  fileUtils.downloadFilefromUrl(currentTaskDir, "noiseFile", downloadLink)
 
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.PMR_TASK_NAME, 

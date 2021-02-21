@@ -1,8 +1,5 @@
 import os
-from muscleUtils import constants 
-from muscleUtils import fileUtils
-from muscleUtils import execute
-from muscleUtils import exceptionHandler
+from muscleUtils import constants, fileUtils, execute, exceptionHandler
 from commandGen import commandGenerator
 
 def mr_simulation(ctask, jopt):
@@ -11,23 +8,19 @@ def mr_simulation(ctask, jopt):
         outputFile, logFile, matFile = fileUtils.getRequiredFileNames(currentTaskDirectory)
         
         options = fileUtils.getJsonFromFile(jopt)["options"]
+        files = options["files"]
 
-        images = options["files"]
         filePathsParam = "\"[{"
         fileNum = 0
-        for image in images:
-            if "ID" in image:
-                fileId = image["ID"]
-
+        for file in files:
             if fileNum != 0:
                 filePathsParam += ", "
-            filePath = os.path.join(currentTaskDirectory, f"file{fileNum}.dat")    
 
-            if fileId:
-                result = fileUtils.downloadCmFile(filePath, fileId)
-                fileUtils.checkDownloadResult(result)
+            if isinstance(file, int) or file.isnumeric():
+                downloadLink = fileUtils.getDataDownloadLink(file)
             else:
-                fileUtils.downloadFiles(filePath, fileUrl)
+                downloadLink = file
+            filePath = fileUtils.downloadFilefromUrl(currentTaskDir, "file{fileNum}", downloadLink)
 
             filePathsParam += f"'{filePath}'"
             fileNum = fileNum + 1

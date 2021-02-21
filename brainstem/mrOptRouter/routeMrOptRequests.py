@@ -11,10 +11,10 @@ def handleACMOrPMRRequest(requestApplication, req_data, data_set, toreturn):
     requestOptions = requestData["options"]
     myH.logIt(app, requestOptions)
     options = {}
-    options["signalFile"] = requestOptions["J"]["signaldata"]
-    options["noiseFile"] = requestOptions["J"]["noisedata"]
     options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
     options["qServer"] = requestOptions["J"]["qServer"]
+    options["signalFile"] = requestOptions["J"]["signalData"]
+    options["noiseFile"] = requestOptions["J"]["noiseData"]
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =
     data_set["uid"] = requestOptions["UID"]
@@ -61,7 +61,7 @@ def handleMRRequest(requestApplication, req_data, data_set, toreturn):
 
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =
-    data_set["uid"] = requestData["uid"]
+    data_set["uid"] = requestOptions["UID"]
     data_set["options"] = options
     myH.logIt(app, data_set)
     response = verterbra.efference(constants.mrOptEfference, data_set)
