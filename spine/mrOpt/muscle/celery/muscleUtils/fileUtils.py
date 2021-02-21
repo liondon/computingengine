@@ -47,12 +47,12 @@ def downloadFilefromUrl(currentTaskDirectory, fileName, fileUrl):
     return filePath
 
 def rfAPIfull(url, data):
-    # headers = {
-    #     "Content-type": "application/json", 
-    #     "Accept": "text/plain",
-    #     "User-Agent": "My User Agent 1.0"
-    # }
-    gg = requests.post(url, data=json.dumps(data)) #, headers=headers
+    headers = {
+        "Content-type": "application/json", 
+        "Accept": "text/plain",
+        "User-Agent": "My User Agent 1.0"
+    }
+    gg = requests.post(url, data=json.dumps(data), headers=headers)
     return gg
 
 def getDataDownloadLink(fileId):
@@ -62,7 +62,9 @@ def getDataDownloadLink(fileId):
     downloadLink = rfAPIfull(constants.cmServiceAPI, json.loads(
         '{"serviceType":"getdatadownloadlink","id":"'+ fileId +'"}'
     ))
+    print("downloadLink", downloadLink)
     downloadLink = downloadLink.json()
+    print("downloadLink.json()", downloadLink)
 
     if downloadLink is not None:  # file can be pending, error or a link
         if downloadLink == "pending":
