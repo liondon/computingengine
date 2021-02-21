@@ -215,7 +215,7 @@ services:
             - "4009:4009"
         environment:
             - UPLOADDIR=/apptmp
-            - brainstem=http://brainstem:5010
+            - BRAINESTEM=http://brainstem:5010
             - USERNAME=Eros
             - PWD=pwd
             - PORT=4009

@@ -15,25 +15,25 @@ TMPDIR = os.getenv("TMPDIR", "/apptmp")
 @celery.task(name=constants.PMR_TASK_NAME, bind=True)
 def pmr_simulation(self, jopt):
     resultJson = PMRSimulation.pmr_simulation(self, jopt)
-    print(resultJson)
+    print("=============== RESULT ===============", resultJson)
     return bluehostAPI.uploadResultToBluehost(resultJson, jopt)
 
 @celery.task(name=constants.ACM_TASK_NAME, bind=True)
 def acm_simulation(self, jopt):
     resultJson = ACMSimulation.acm_simulation(self, jopt)
-    print(resultJson)
+    print("=============== RESULT ===============", resultJson)
     return bluehostAPI.uploadResultToBluehost(resultJson, jopt)
 
 @celery.task(name=constants.DI_TASK_NAME, bind=True)
 def di_simulation(self, jopt):
     resultJson = DISimulation.di_simulation(self, jopt) 
-    print(resultJson)
+    print("=============== RESULT ===============", resultJson)
     return bluehostAPI.uploadResultToBluehost(resultJson, jopt)
 
 @celery.task(name=constants.MR_TASK_NAME, bind=True)
 def mr_simulation(self, jopt):
     resultJson = MRSimulation.mr_simulation(self, jopt)
-    print(resultJson)
+    print("=============== RESULT ===============", resultJson)
     return bluehostAPI.uploadResultToBluehost(resultJson, jopt)
     
 

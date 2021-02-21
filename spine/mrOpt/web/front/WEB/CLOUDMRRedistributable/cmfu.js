@@ -202,13 +202,15 @@ angular.module("CMFU", [])
 
                 }
 
-                //actually upload it
+                // actually upload it
+                // TODO: cannot upload multipart (large) files now
                 scope.uploadFile = function () {
                     var bucketName = "cloudmrhub";
                     var bucketRegion = 'us-east-2';
                     var identityPoolId = 'us-east-2:f20bb844-8be4-4162-bb23-b33fb57bd7dc';
                     // TODO: the identityPoolId here Enable access to unauthenticated identities
                     // should change it to only allow logged-in users. Check AWS Cognito.
+                    // TODO: should use environment variable for this, Deactive the identityPool before publish.
 
                     AWS.config.update({
                         region: bucketRegion,

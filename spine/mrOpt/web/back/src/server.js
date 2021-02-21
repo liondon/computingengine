@@ -14,7 +14,7 @@ const PORT=process.env.PORT || 4009;
 const APPNAME=process.env.APPNAME || 'MrOpt';
 
 
-const BRAIN=process.env.BRAIN || 'http://brainstem:5010';
+const BRAINESTEM = process.env.BRAINESTEM || 'http://brainstem:5010';
 
 const UPLOADDIR=process.env.UPLOADDIR || '/apptmp'
 
@@ -153,21 +153,19 @@ app.post('/fileupload', function(req, res) {
  
 app.post('/tasks', (req, res) => {
   //add a task
-  
-  
-  var J=req.body;
-  console.log(J.J.NoiseFileType);
+  var data = req.body;
+  console.log("=============== data.J (jopt)===============", data.J);
+
   var options = {
-    uri: BRAIN + '/pipelines',
+    uri: BRAINESTEM + '/pipelines',
     method: 'POST',
     json: {    
-      theuser:USERNAME,
-    thepwd:PWD,
-    pipeline:[{
-      application: J.JobType.toLowerCase(),
-      options:J,
-
-    }]},
+      theuser: USERNAME,
+      thepwd: PWD,
+      pipeline:[{
+        application: data.JobType.toLowerCase(),
+        options: data,
+      }]},
     'Content-type' : 'application/json'
   };
 
@@ -198,7 +196,7 @@ app.post('/tasks', (req, res) => {
 
 // just an example
 app.get('/tasksfull/', (req, res) => {
-  var link= BRAIN + '/pipelines/';
+  var link= BRAINESTEM + '/pipelines/';
 
   let   NEWTASK=[]
 
@@ -231,7 +229,7 @@ axios.all(promises).then(() => {
 app.get('/tasks/', (req, res) => {
 
   // update the tasks array
-  var link= BRAIN + '/pipelines/';
+  var link= BRAINESTEM + '/pipelines/';
   let   NEWTASK=[]
   let promises=[]
 

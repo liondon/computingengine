@@ -2,7 +2,7 @@ from muscleUtils import constants, fileUtils
 import requests
 import json
 
-# TODO Change result upload to S3 bucket and treat results as normal files.
+# TODO: Change result upload to S3 bucket and treat results as normal files.
 # S3 bucket or any persistent storage works. Update /Q/serviceAPI.php to write the url into database.
 def uploadResultToBluehost(resultJson, jopt):
     uploadUrl = (
@@ -30,4 +30,4 @@ def uploadResultToBluehost(resultJson, jopt):
         headers=headers,
     )
 
-    print(r.text)
+    print("=============== uploadResultToBluehost ===============", r.text)
