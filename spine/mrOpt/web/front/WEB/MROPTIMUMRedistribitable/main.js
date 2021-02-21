@@ -1035,8 +1035,11 @@ var MROPTIMUMDIRECTIVE = angular.module("MROPTIMUMDIRECTIVE", [])
                 j.clientmin = cmtool.getClientInfoMin();
                 j.alias = a;
 
-                d.optionsFile = cmTASK.mrOptionsFile;
-                d.qServer = cmTASK.qServer;
+                // TODO: this is hardcoded for test, the workflow is not correct now.
+                // the whole "j" is the jopt, and is written into a JSON file at vertebra/spinalnode
+                // See README for more detail.
+                // j.optionsFile = cmTASK.mrOptionsFile;
+                // j.qServer = cmTASK.qServer;
 
                 data = {
                     'JobType': "MR",
@@ -1733,8 +1736,11 @@ var MROPTIMUMDIRECTIVE = angular.module("MROPTIMUMDIRECTIVE", [])
                     }
                     d.alias = L[c].alias
                     
-                    d.optionsFile = cmTASK.acmOptionsFile;
-                    d.qServer = cmTASK.qServer;
+                    // TODO: this is hardcoded for test, the workflow is not correct now.
+                    // the whole "d" is the jopt, and is written into a JSON file at vertebra/spinalnode
+                    // See README for more detail.
+                    // d.optionsFile = cmTASK.acmOptionsFile;
+                    // d.qServer = cmTASK.qServer;
 
                     data = {
                         'JobType': 'ACM',
@@ -3049,8 +3055,12 @@ var MROPTIMUMDIRECTIVE = angular.module("MROPTIMUMDIRECTIVE", [])
                     }
 
                     d.NR = scope.data.NR;
-                    d.optionsFile = cmTASK.pmrOptionsFile;
-                    d.qServer = cmTASK.qServer;
+
+                    // TODO: this is hardcoded for test, the workflow is not correct now.
+                    // the whole "d" is the jopt, and is written into a JSON file at vertebra/spinalnode
+                    // See README for more detail.
+                    // d.optionsFile = cmTASK.pmrOptionsFile;
+                    // d.qServer = cmTASK.qServer;
 
                     data = {
                         'JobType': 'PMR',

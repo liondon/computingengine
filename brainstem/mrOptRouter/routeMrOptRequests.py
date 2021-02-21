@@ -10,11 +10,16 @@ def handleACMOrPMRRequest(requestApplication, req_data, data_set, toreturn):
     requestData = req_data["pipeline"][0]
     requestOptions = requestData["options"]
     myH.logIt(app, requestOptions)
+
     options = {}
-    options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
-    options["qServer"] = requestOptions["J"]["qServer"]
     options["signalFile"] = requestOptions["J"]["signalData"]
     options["noiseFile"] = requestOptions["J"]["noiseData"]
+    
+    # TODO: this is weird... the jopt is written into JSON file at vertebra/spinalnode
+    # See README for more detail
+    # options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
+    # options["qServer"] = requestOptions["J"]["qServer"]
+
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =
     data_set["uid"] = requestOptions["UID"]
@@ -56,8 +61,10 @@ def handleMRRequest(requestApplication, req_data, data_set, toreturn):
 
     files = [val["ID"] for val in json.loads(requestOptions["J"]["images"])]
     options["files"] = files
-    options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
-    options["qServer"] = requestOptions["J"]["qServer"]
+    # TODO: this is weird... the jopt is written into JSON file at vertebra/spinalnode
+    # See README for more detail
+    # options["optionsFileUrl"] = requestOptions["J"]["optionsFile"]
+    # options["qServer"] = requestOptions["J"]["qServer"]
 
     data_set["jobType"] = requestApplication.lower()
     # data_set["taskName"] =

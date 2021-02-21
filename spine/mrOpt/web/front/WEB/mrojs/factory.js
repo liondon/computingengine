@@ -28,10 +28,11 @@ MROPTIMUM.factory("cmTASK", ["$state", "$http", "$q", "$compile", "cmtool", "$in
     var baseUrl = getUrl.protocol + "//" + getUrl.host.split(":")[0];
     u.taskUploadAPI = baseUrl + ":" + BACKEND_PORT + '/tasks';
 
-    u.pmrOptionsFile = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/PMR/J/PMROPT_5d1d0e23de333.json";
-    u.mrOptionsFile = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/212/MR/J/MROPT_5f452fca92548.json"
-    u.acmOptionsFile = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/ACM/J/ACMOPT_5d1d0afd204bd.json"
-    u.qServer = "http://cloudmrhub.com/Q/";
+    // TODO: these are for test only
+    // u.pmrOptionsFile = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/PMR/J/PMROPT_5d1d0e23de333.json";
+    // u.mrOptionsFile = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/212/MR/J/MROPT_5f452fca92548.json"
+    // u.acmOptionsFile = "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/ACM/J/ACMOPT_5d1d0afd204bd.json"
+    // u.qServer = "http://cloudmrhub.com/Q/";
 
     u.getUserLog = function () {
         return u.logUID;

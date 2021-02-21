@@ -30,10 +30,11 @@ def mr_simulation(ctask, jopt):
             constants.MR_TASK_NAME, 
             filePathsParam, 
             None,
-            options["optionsFileUrl"], 
+            "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/212/MR/J/MROPT_5f452fca92548.json",  #TODO: fix this
             outputFile, logFile, 
-            options["qServer"])
         print(command)
+            constants.qServer
+        )
         execute.executeTask(ctask, command)
 
         with open(logFile, 'r') as log:

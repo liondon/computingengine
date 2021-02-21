@@ -23,9 +23,9 @@ def  pmr_simulation(ctask, jopt):
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.PMR_TASK_NAME, 
             signalFilePath, noiseFilePath, 
-            options["optionsFileUrl"], 
+            "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/PMR/J/PMROPT_5d1d0e23de333.json",  #TODO: fix this
             outputFile, logFile, 
-            options["qServer"]
+            constants.qServer
         )
         print(command)
         execute.executeTask(ctask, command)

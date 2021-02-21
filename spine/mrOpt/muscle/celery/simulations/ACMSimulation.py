@@ -25,9 +25,9 @@ def acm_simulation(ctask, jopt):
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.ACM_TASK_NAME, 
             signalFilePath, noiseFilePath, 
-            options["optionsFileUrl"], 
+            "http://cloudmrhub.com/apps/MROPTIMUM/APPDATA/147/ACM/J/ACMOPT_5d1d0afd204bd.json", #TODO: fix this
             outputFile, logFile, 
-            options["qServer"]
+            constants.qServer
         )
         print(command)
         execute.executeTask(ctask, command)
