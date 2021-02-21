@@ -12,26 +12,14 @@ def di_simulation(ctask, jopt):
         
         options = fileUtils.getJsonFromFile(jopt)["options"]
         print('options', options)
-        
-        imageFile1Path = os.path.join(currentTaskDirectory, "imageFile1.dat")
-        imageFile2Path = os.path.join(currentTaskDirectory, "imageFile2.dat")
 
-        print(options["imageFile1"])
         if isinstance(options["imageFile1"], int) or options["imageFile1"].isnumeric():
-            # Using fileId
-            result = fileUtils.downloadCmFile(imageFile1Path, options["imageFile1"])
-            fileUtils.checkDownloadResult(result)
-        else: 
-            # Using fileURL
-            fileUtils.downloadFiles(imageFile1Path, options["imageFile1"])
+            downloadLink = fileUtils.getDataDownloadLink(options["imageFile1"])
+        imageFile1Path = fileUtils.downloadFilefromUrl(currentTaskDir, "imageFile1", options["imageFile1"])
 
         if isinstance(options["imageFile2"], int) or options["imageFile2"].isnumeric():
-            # Using fileId
-            result = fileUtils.downloadCmFile(imageFile2Path, options["imageFile2"])
-            fileUtils.checkDownloadResult(result)
-        else: 
-            # Using fileURL
-            fileUtils.downloadFiles(imageFile2Path, options["imageFile2"])
+            downloadLink = fileUtils.getDataDownloadLink(options["imageFile2"])
+        imageFile2Path = fileUtils.downloadFilefromUrl(currentTaskDir, "imageFile2", options["imageFile2"])
 
         command = commandGenerator.getMrOptCommandFromTaskName(
             constants.DI_TASK_NAME, 
